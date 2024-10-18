@@ -8,8 +8,16 @@ int sum(int* num1, int* num2, int* array);
 int decimalisation(int* array);
 void print(int* array, int arrayLength);
 int arrayToInt(int* array);
+bool testCorrect();
+bool testCorrect2();
+bool testCorrect3();
 
 int main() {
+    if (!testCorrect() || !testCorrect2()|| !testCorrect3()) {
+        printf("Tests failed!\n");
+        return 1;
+    }
+
     int n, m;
     printf("Enter the numbers from -128 to 127:\n");
     int n1 = scanf("%u\n", &n);
@@ -119,4 +127,39 @@ int decimalisation(int* array) {
         base *= 2;
     }
     return dec_value;
+}
+
+bool testCorrect() {
+    int n = 12;
+    int m = -10;
+
+    int array_n[8];
+    binN(n, array_n);
+    int array_m[8];
+    binN(m, array_m);
+
+    int result[8];
+    sum(array_n, array_m, result);
+
+    return decimalisation(result) == 2;
+}
+
+bool testCorrect2() {
+    int array_1[8] = { 1, 1, 1, 1, 0, 1, 0, 0 };
+    return decimalisation(array_1) == -12;
+}
+
+bool testCorrect3() {
+    int num1 = -120;
+    int num2 = 100;
+
+    int array_1[8];
+    binN(num1, array_1);
+    int array_2[8];
+    binN(num2, array_2);
+
+    int result[8];
+    sum(array_1, array_2, result);
+
+    return decimalisation(result) == -20;
 }
