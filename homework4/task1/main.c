@@ -8,12 +8,12 @@ int sum(int* num1, int* num2, int* array);
 int decimalisation(int* array);
 void print(int* array, int arrayLength);
 int arrayToInt(int* array);
-bool testCorrect();
-bool testCorrect2();
-bool testCorrect3();
+bool testSumInBin(void);
+bool testBinToDec(void);
+bool testSimInDec(void);
 
-int main() {
-    if (!testCorrect() || !testCorrect2()|| !testCorrect3()) {
+int main(void) {
+    if (!testSumInBin() || !testBinToDec()|| !testSimInDec()) {
         printf("Tests failed!\n");
         return 1;
     }
@@ -69,9 +69,9 @@ int binN(int number, int* array) {
 
 int arrayToInt(int* array) {
     int k = 0;
-    for (int i = 0; i < 8; ++i)
+    for (int i = 0; i < 8; ++i) {
         k = 10 * k + array[i];
-
+    }
     return k;
 }
 
@@ -129,7 +129,7 @@ int decimalisation(int* array) {
     return dec_value;
 }
 
-bool testCorrect() {
+bool testSumInBin(void) {
     int n = 12;
     int m = -10;
 
@@ -141,15 +141,18 @@ bool testCorrect() {
     int result[8];
     sum(array_n, array_m, result);
 
-    return decimalisation(result) == 2;
+    int binResultSum[8] = { 0, 0, 0, 0, 0, 0, 1, 0 };
+    for (int i = 0; i < 8; ++i) {
+        return result[i] == binResultSum[i];
+    }
 }
 
-bool testCorrect2() {
+bool testBinToDec(void) {
     int array_1[8] = { 1, 1, 1, 1, 0, 1, 0, 0 };
     return decimalisation(array_1) == -12;
 }
 
-bool testCorrect3() {
+bool testSimInDec(void) {
     int num1 = -120;
     int num2 = 100;
 

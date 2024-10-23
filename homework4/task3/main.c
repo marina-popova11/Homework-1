@@ -9,7 +9,7 @@
 #define PHONE_LENGTH 30
 #define NUMBER_OF_ENTRIES 100
 
-void printOperations();
+void printOperations(void);
 
 int main(void) {
 
