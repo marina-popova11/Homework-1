@@ -133,6 +133,9 @@
   <ItemGroup>
     <ClInclude Include="operations.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="phoneDirectory.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
