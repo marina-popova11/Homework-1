@@ -15,7 +15,7 @@ int readRecords(const char* filename, person* collection, int* recordsCount) {
     }
 
     char newName[NAME_LENGTH] = { '\0' };
-    char newPhone[PHONE_LENGTH] = { '\0' };;
+    char newPhone[PHONE_LENGTH] = { '\0' };
     int i = 0;
 
     while (fscanf(file, "%s", newName) != EOF && fscanf(file, "%s", newPhone) != EOF) {
