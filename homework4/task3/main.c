@@ -11,7 +11,7 @@
 
 void printOperations();
 
-int main() {
+int main(void) {
 
     person collection[NUMBER_OF_ENTRIES];
 
@@ -75,7 +75,7 @@ int main() {
     return 0;
 }
 
-void printOperations() {
+void printOperations(void) {
     printf("Operatoins:\n"
         "0. Exit\n"
         "1. Add a record(name and phone number)\n"

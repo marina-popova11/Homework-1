@@ -10,8 +10,9 @@
 
 int readRecords(const char* filename, person* collection, int* recordsCount) {
     FILE* file = fopen(filename, "r");
-    if (file == NULL)
+    if (file == NULL) {
         return 1;
+    }
 
     char newName[NAME_LENGTH] = { '\0' };
     char newPhone[PHONE_LENGTH] = { '\0' };;
