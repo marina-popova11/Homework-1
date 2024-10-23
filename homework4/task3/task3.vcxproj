@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="phoneDirectory.txt" />
+    <Text Include="testFile.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

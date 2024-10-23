@@ -10,9 +10,14 @@
 #define NUMBER_OF_ENTRIES 100
 
 void printOperations(void);
+bool testOpenFile(void);
+bool testReadFromFile(void);
 
 int main(void) {
-
+    if (!testOpenFile() || !testReadFromFile()) {
+        printf("Tests failed!\n");
+        return 1;
+    }
     person collection[NUMBER_OF_ENTRIES];
 
     int recordNumber = 0;
@@ -83,4 +88,22 @@ void printOperations(void) {
         "3. Find a phone by name\n"
         "4. Find a name by phone\n"
         "5. Save the current data to a file\n\n");
+}
+
+bool testOpenFile(void) {
+    FILE* file = fopen("testFile.txt", "r");
+    if (file == NULL) {
+        return false;
+    }
+    return true;
+}
+
+bool testReadFromFile(void) {
+    person* collectionTest[NUMBER_OF_ENTRIES];
+    int recordNumberTest = 0;
+    if (readRecords("testFile.txt", collectionTest, &recordNumberTest) != 0) {
+        printf("Error reading database\n");
+        return false;
+    }
+    return recordNumberTest == 2;
 }
