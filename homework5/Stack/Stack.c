@@ -21,27 +21,23 @@ Stack* createStack() {
     return ptr;
 }
 
-Stack* push(Stack* stack, int value) {
-    Element* element = malloc(sizeof(Element));
+void push(Stack* stack, int value) {
+    Element* element = calloc(1, sizeof(Element));
     if (element == NULL) {
         exit(1);
     }
     element->value = value;
     element->next = stack->head;
     stack->head = element;
-
-    return stack->head->value;
 }
 
 int pop(Stack* stack) {
     if (stack->head == NULL) {
         exit(1);
     }
-    int value;
-    value = stack->head->value;
+    Element* ptr = stack->head;
+    int value = stack->head->value;
     printf("Deleted: %d\n", stack->head->value);
-
-    Stack* ptr = stack->head;
     stack->head = stack->head->next;
     free(ptr);
     return value;
@@ -72,4 +68,15 @@ void clearStack(Stack* stack) {
         pop(stack);
     }
     free(stack);
+}
+
+int stackSize(Stack* stack) {
+    int size = 0;
+    void* ptr = stack->head;
+    while (!isEmpty(stack)) {
+        stack->head = stack->head->next;
+        ++size;
+    }
+    stack->head = ptr;
+    return size;
 }
