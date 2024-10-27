@@ -10,8 +10,8 @@
 #define NUMBER_OF_ENTRIES 100
 
 void printOperations(void);
-bool testOpenFile(void);
-bool testReadFromFile(void);
+bool testOpenFile();
+bool testReadFromFile();
 
 int main(void) {
     if (!testOpenFile() || !testReadFromFile()) {
@@ -90,7 +90,7 @@ void printOperations(void) {
         "5. Save the current data to a file\n\n");
 }
 
-bool testOpenFile(void) {
+bool testOpenFile() {
     FILE* file = fopen("testFile.txt", "r");
     if (file == NULL) {
         return false;
@@ -98,7 +98,7 @@ bool testOpenFile(void) {
     return true;
 }
 
-bool testReadFromFile(void) {
+bool testReadFromFile() {
     person* collectionTest[NUMBER_OF_ENTRIES];
     int recordNumberTest = 0;
     if (readRecords("testFile.txt", collectionTest, &recordNumberTest) != 0) {

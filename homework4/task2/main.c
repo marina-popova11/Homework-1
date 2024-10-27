@@ -46,7 +46,7 @@ void print_array(int* array, int arrayLength) {
     printf("]\n");
 }
 
-bool testQuickSort(void) {
+bool testQuickSort() {
     int array[15] = { 2, 4, 55, 21, 3, 2, 8, 18, 5, 3, 5, 19, 18, 2, 18 };
     int sorted_array[15] = { 2, 2, 2, 3, 3, 3, 4, 5, 5, 8, 18, 18, 18, 19, 55 };
     quickSort(array, 0, 15 - 1);
@@ -55,7 +55,7 @@ bool testQuickSort(void) {
     }
 }
 
-bool testMostFrequencyElement(void) {
+bool testMostFrequencyElement() {
     int array[20] = { 2, 3, 4, 5, 3, 5, 6, 7, 5, 5 ,4 ,8, 9, 6, 5, 3 ,7, 8, 5, 6 };
     int result = theMostFrequencyElement(array, 20);
     return result == 5;

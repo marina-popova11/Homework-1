@@ -8,9 +8,9 @@ int sum(int* num1, int* num2, int* array);
 int decimalisation(int* array);
 void print(int* array, int arrayLength);
 int arrayToInt(int* array);
-bool testSumInBin(void);
-bool testBinToDec(void);
-bool testSimInDec(void);
+bool testSumInBin();
+bool testBinToDec();
+bool testSimInDec();
 
 int main(void) {
     if (!testSumInBin() || !testBinToDec()|| !testSimInDec()) {
@@ -129,7 +129,7 @@ int decimalisation(int* array) {
     return dec_value;
 }
 
-bool testSumInBin(void) {
+bool testSumInBin() {
     int n = 12;
     int m = -10;
 
@@ -147,12 +147,12 @@ bool testSumInBin(void) {
     }
 }
 
-bool testBinToDec(void) {
+bool testBinToDec() {
     int array_1[8] = { 1, 1, 1, 1, 0, 1, 0, 0 };
     return decimalisation(array_1) == -12;
 }
 
-bool testSimInDec(void) {
+bool testSimInDec() {
     int num1 = -120;
     int num2 = 100;
 
