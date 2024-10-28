@@ -55,19 +55,12 @@ bool isEmpty(Stack* stack) {
     return stack->head == NULL;
 }
 
-//void printStack(Stack* stack) {
-//    printf("Stack >");
-//    while (!isEmpty(stack)) {
-//        printf("%d", stack->head->value);
-//        stack->head = stack->head->next;
-//    }
-//}
-
 void clearStack(Stack* stack) {
     while (!isEmpty(stack)) {
-        pop(stack);
+        void* ptr = stack->head->next;
+        free(stack->head);
+        stack->head = ptr;
     }
-    free(stack);
 }
 
 int stackSize(Stack* stack) {
