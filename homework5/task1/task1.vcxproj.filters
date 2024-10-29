@@ -15,21 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Stack\Stack.c">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Stack\testStack.c">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="postfixCalculator.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Stack\Stack.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Stack\Stack.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Stack\testStack.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

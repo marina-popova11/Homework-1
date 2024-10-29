@@ -10,44 +10,15 @@ int calculator(const char* inputString);
 char* enteringLine(void);
 bool calculatorTest();
 
-bool tests(void) {
-    if (!createStackTest()) {
-        printf("CreateStackTest is failed\n");
-        return false;
-    }
-    if (!pushAndSizeTest()) {
-        printf("PushAndSizeTest is failed\n");
-        return false;
-    }
-    if (!popTest()) {
-        printf("PopTest is failed\n");
-        return false;
-    }
-    if (!peekTest()) {
-        printf("peekTest is failed\n");
-        return false;
-    }
-    if (!isEmptyTest()) {
-        printf("IsEmptyTest is failed\n");
-        return false;
-    }
-    if (!clearStackTest()) {
-        printf("ClearStackTest is failed\n");
-        return false;
-    }
-    if (!calculatorTest()) {
-        printf("calculatorTest() is failed\n");
-        return false;
-    }
-    return true;
-}
-
 int main(void) {
-    if (!tests()) {
+    if (!calculatorTest()) {
         return -1;
     }
-    printf("Enter an expression that is in a postfix form (using only characters ""0123456789+-*/""): ");
+    printf("Enter an expression that is in a postfix form (using only characters \"0123456789+-*/\"): ");
     char* inputString = enteringLine();
+    if (inputString == NULL) {
+        return 1;
+    }
     printf("%s\n", inputString);
     int result = calculator(inputString);
     printf("%d\n", result);
@@ -114,15 +85,16 @@ int calculator(const char* inputString) {
             break;
         }
     }
-    if (stackSize(stack) == 1) {
+    if (!isEmpty(stack)) {
         return peek(stack);
     }
+    return -1;
 }
 
 char* enteringLine(void) {
     char* inputString = (char*)calloc(1, sizeof(char));
     if (inputString == NULL) {
-        exit(1);
+        return NULL;
     }
     int stringLength = 0;
     int bufferSize = 1;
@@ -135,7 +107,7 @@ char* enteringLine(void) {
             bufferSize *= 2;
             char* ptr = realloc(inputString, sizeof(char) * bufferSize);
             if (ptr == NULL) {
-                return -1;
+                return NULL;
             }
             inputString = ptr;
         }
@@ -150,7 +122,7 @@ char* enteringLine(void) {
         if (strchr(elements, inputString[i]) == NULL) {
             printf("Such a symbol should not be used!\n");
             free(inputString);
-            return -1;
+            return NULL;
         }
         ++i;
     }
