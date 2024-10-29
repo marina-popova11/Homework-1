@@ -8,7 +8,7 @@ typedef struct Stack Stack;
 
 Stack* createStack();
 
-void push(Stack* stack, int value);
+void push(Stack* stack, char value);
 
 int pop(Stack* stack);
 

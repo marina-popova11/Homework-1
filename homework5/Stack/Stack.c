@@ -5,7 +5,7 @@
 #include "Stack.h"
 
 typedef struct Element {
-    int value;
+    char value;
     struct Element* next;
 }Element;
 
@@ -21,7 +21,7 @@ Stack* createStack() {
     return ptr;
 }
 
-void push(Stack* stack, int value) {
+void push(Stack* stack, char value) {
     Element* element = calloc(1, sizeof(Element));
     if (element == NULL) {
         exit(1);
@@ -36,7 +36,7 @@ int pop(Stack* stack) {
         exit(1);
     }
     Element* ptr = stack->head;
-    int value = stack->head->value;
+    char value = stack->head->value;
     printf("Deleted: %d\n", stack->head->value);
     stack->head = stack->head->next;
     free(ptr);
@@ -47,7 +47,7 @@ int peek(Stack* stack) {
     if (isEmpty(stack->head)) {
         exit(1);
     }
-    int value = stack->head->value;
+    char value = stack->head->value;
     return value;
 }
 
