@@ -7,48 +7,37 @@
 typedef struct Element {
     char value;
     struct Element* next;
-}Element;
+} Element;
 
 typedef struct Stack {
     Element* head;
 } Stack;
 
 Stack* createStack() {
-    Stack* ptr = calloc(1, sizeof(Stack));
-    if (ptr == NULL) {
-        exit(1);
-    }
-    return ptr;
+    return calloc(1, sizeof(Stack));
 }
 
-void push(Stack* stack, char value) {
+bool push(Stack* stack, int value) {
     Element* element = calloc(1, sizeof(Element));
     if (element == NULL) {
-        exit(1);
+        return false;
     }
     element->value = value;
     element->next = stack->head;
     stack->head = element;
+    return true;
 }
 
 int pop(Stack* stack) {
-    if (stack->head == NULL) {
-        exit(1);
-    }
     Element* ptr = stack->head;
-    char value = stack->head->value;
-    printf("Deleted: %d\n", stack->head->value);
+    int value = stack->head->value;
     stack->head = stack->head->next;
     free(ptr);
     return value;
 }
 
 int peek(Stack* stack) {
-    if (isEmpty(stack->head)) {
-        exit(1);
-    }
-    char value = stack->head->value;
-    return value;
+    return stack->head->value;
 }
 
 bool isEmpty(Stack* stack) {
@@ -56,10 +45,14 @@ bool isEmpty(Stack* stack) {
 }
 
 void clearStack(Stack* stack) {
+    if (stack == NULL) {
+        return;
+    }
+
     while (!isEmpty(stack)) {
-        void* ptr = stack->head->next;
-        free(stack->head);
-        stack->head = ptr;
+        Element* head = stack->head;
+        stack->head = head->next;
+        free(head);
     }
 }
 
