@@ -2,13 +2,11 @@
 
 #include <stdbool.h>
 
-typedef struct Element Element;
-
 typedef struct Stack Stack;
 
 Stack* createStack();
 
-void push(Stack* stack, char value);
+bool push(Stack* stack, int value);
 
 int pop(Stack* stack);
 

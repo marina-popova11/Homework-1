@@ -5,7 +5,7 @@
 #include "Stack.h"
 
 bool createStackTest() {
-    Stack* ptr = createStack;
+    Stack* ptr = createStack();
     return ptr != NULL;
 }
 
@@ -29,10 +29,11 @@ bool popTest() {
 
 bool peekTest() {
     Stack* ptr = createStack();
-    push(ptr, 1);
-    push(ptr, 2);
     push(ptr, 3);
-    return peek(ptr) == 3;
+    push(ptr, 4);
+    push(ptr, 5);
+
+    return peek(ptr) == 5;
 }
 
 bool isEmptyTest() {
@@ -57,4 +58,34 @@ bool clearStackTest() {
 
     clearStack(ptr);
     return isEmpty(ptr);
+}
+
+int main(void) {
+    if (!createStackTest()) {
+        printf("CreateStackTest is failed\n");
+        return false;
+    }
+    if (!pushAndSizeTest()) {
+        printf("PushAndSizeTest is failed\n");
+        return false;
+    }
+    if (!popTest()) {
+        printf("PopTest is failed\n");
+        return false;
+    }
+    if (!peekTest()) {
+        printf("peekTest is failed\n");
+        return false;
+    }
+    if (!isEmptyTest()) {
+        printf("IsEmptyTest is failed\n");
+        return false;
+    }
+    if (!clearStackTest()) {
+        printf("ClearStackTest is failed\n");
+        return false;
+    }
+
+    printf("All tests passed\n");
+    return true;
 }
