@@ -27,6 +27,14 @@ bool popTest() {
     return pop(ptr) == 3;
 }
 
+bool peekTest() {
+    Stack* ptr = createStack();
+    push(ptr, 1);
+    push(ptr, 2);
+    push(ptr, 3);
+    return peek(ptr) == 3;
+}
+
 bool isEmptyTest() {
     Stack* ptr = createStack();
     push(ptr, 1);
