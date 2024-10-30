@@ -5,7 +5,7 @@
 #include "Stack.h"
 
 typedef struct Element {
-    char value;
+    int value;
     struct Element* next;
 } Element;
 
