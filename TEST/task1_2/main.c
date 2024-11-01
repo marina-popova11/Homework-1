@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <math.h>
 
 bool isPalindrome(int number);
 bool testIsPalindrome1();
@@ -34,6 +35,7 @@ int main(void) {
 }
 
 bool isPalindrome(int number) {
+    number = abs(number);
     int current = number;
     int reserved = 0;
 
