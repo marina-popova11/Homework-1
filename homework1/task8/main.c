@@ -1,14 +1,14 @@
 #include <stdio.h>
+#define ARRAY_SIZE 10
 
-void swap(int start, int end, int* array);
+void flip(int start, int end, int* array);
+void swap(int start, int border, int end, int* array);
 
-void print_array(int A[], int N) {
-    for (int i = 0; i < N; i++)
-        printf("%d", A[i]);
+void printArray(int array[], int length) {
+    for (int i = 0; i < length; i++)
+        printf("%d", array[i]);
     printf("\n");
 }
-
-#define ARRAY_SIZE 10
 
 void main() {
     printf("Enter array (10 elements) to flip: ");
@@ -22,7 +22,7 @@ void main() {
     printf("\n");
 
     printf("Enter the length of the first part of the array: ");
-    int m;
+    int m = 0;
     if (scanf("%d", &m) != 1) {
         printf("Incorrect value\n");
         return 1;
@@ -34,17 +34,21 @@ void main() {
     }
 
     printf("\n");
-
-    swap(0, m - 1, array);
-    swap(m, ARRAY_SIZE - 1, array);
-    swap(0, ARRAY_SIZE - 1, array);
-    print_array(array, ARRAY_SIZE);
+    swap(0, m, ARRAY_SIZE - 1, array);
+    printArray(array, ARRAY_SIZE);
 }
 
-void swap(int start, int end, int* array) {
+void flip(int start, int end, int* array) {
     for (int i = start; i < (start + end + 1) / 2; i++) {
         int var = array[i];
         array[i] = array[end + start - i];
         array[end + start - i] = var;
     }
 }
+
+void swap(int start, int border, int end, int* array) {
+    flip(start, border - 1, array);
+    flip(border, end, array);
+    flip(start, end, array);
+}
+
