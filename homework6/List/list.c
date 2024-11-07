@@ -52,12 +52,10 @@ void setValue(List* list, Position position, Value value) {
 }
 
 Position first(List* list) {
-    assert(list != NULL);
     return list->head;
 }
 
 Position next(Position position) {
-    assert(position->next != NULL);
     return position->next;
 }
 
