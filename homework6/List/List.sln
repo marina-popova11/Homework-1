@@ -5,6 +5,13 @@ VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "List", "List.vcxproj", "{BDE066AF-CFDB-4DF3-BEE6-2B149559D496}"
 EndProject
+<<<<<<< Updated upstream
+=======
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "task1", "..\task1\task1.vcxproj", "{7934EA43-83C8-4667-A17F-9FB387310C67}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "task2", "..\task2\task2.vcxproj", "{E6FB3C53-E766-49E0-908B-42F002F0D3FE}"
+EndProject
+>>>>>>> Stashed changes
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +28,25 @@ Global
 		{BDE066AF-CFDB-4DF3-BEE6-2B149559D496}.Release|x64.Build.0 = Release|x64
 		{BDE066AF-CFDB-4DF3-BEE6-2B149559D496}.Release|x86.ActiveCfg = Release|Win32
 		{BDE066AF-CFDB-4DF3-BEE6-2B149559D496}.Release|x86.Build.0 = Release|Win32
+<<<<<<< Updated upstream
+=======
+		{7934EA43-83C8-4667-A17F-9FB387310C67}.Debug|x64.ActiveCfg = Debug|x64
+		{7934EA43-83C8-4667-A17F-9FB387310C67}.Debug|x64.Build.0 = Debug|x64
+		{7934EA43-83C8-4667-A17F-9FB387310C67}.Debug|x86.ActiveCfg = Debug|Win32
+		{7934EA43-83C8-4667-A17F-9FB387310C67}.Debug|x86.Build.0 = Debug|Win32
+		{7934EA43-83C8-4667-A17F-9FB387310C67}.Release|x64.ActiveCfg = Release|x64
+		{7934EA43-83C8-4667-A17F-9FB387310C67}.Release|x64.Build.0 = Release|x64
+		{7934EA43-83C8-4667-A17F-9FB387310C67}.Release|x86.ActiveCfg = Release|Win32
+		{7934EA43-83C8-4667-A17F-9FB387310C67}.Release|x86.Build.0 = Release|Win32
+		{E6FB3C53-E766-49E0-908B-42F002F0D3FE}.Debug|x64.ActiveCfg = Debug|x64
+		{E6FB3C53-E766-49E0-908B-42F002F0D3FE}.Debug|x64.Build.0 = Debug|x64
+		{E6FB3C53-E766-49E0-908B-42F002F0D3FE}.Debug|x86.ActiveCfg = Debug|Win32
+		{E6FB3C53-E766-49E0-908B-42F002F0D3FE}.Debug|x86.Build.0 = Debug|Win32
+		{E6FB3C53-E766-49E0-908B-42F002F0D3FE}.Release|x64.ActiveCfg = Release|x64
+		{E6FB3C53-E766-49E0-908B-42F002F0D3FE}.Release|x64.Build.0 = Release|x64
+		{E6FB3C53-E766-49E0-908B-42F002F0D3FE}.Release|x86.ActiveCfg = Release|Win32
+		{E6FB3C53-E766-49E0-908B-42F002F0D3FE}.Release|x86.Build.0 = Release|Win32
+>>>>>>> Stashed changes
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
