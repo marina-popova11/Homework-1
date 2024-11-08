@@ -2,33 +2,33 @@
 #include <math.h>
 #include <stdbool.h>
 
-float exponentiationIteractive(float number, int degree);
+float exponentiationIterative(float number, int degree);
 float exponentiationRecursive(float number, int degree);
 float linearExponentiation(float number, int degree);
 
-static bool testCorrect() {
-    return (exponentiationIteractive(15, 5) == 759375);
+static bool testExponentiationIterative() {
+    return exponentiationIterative(15, 5) == 759375;
 }
 
-static bool testCorrect1() {
-    return (exponentiationRecursive(2, -4) == 0, 0625);
+static bool testExponentiationRecursive() {
+    return exponentiationRecursive(2, -4) == 0,0625;
 }
 
-static bool testCorrect2() {
-    return (linearExponentiation(0, 0) == 1);
+static bool testLinearExponentiation() {
+    return linearExponentiation(0, 0) == 1;
 }
 
 int main() {
-    if (!testCorrect() || !testCorrect1() || !testCorrect2()) {
+    if (!testExponentiationIterative() || !testExponentiationRecursive() || !testLinearExponentiation()) {
         printf("Tests failed\n");
         return 0;
     }
 
     float number = 0;
     int degree = 0;
-    long double result = 1;
-    long double result1 = 1;
-    long double result2 = 1;
+    float result = 1;
+    float result1 = 1;
+    float result2 = 1;
 
     if (scanf("%f", &number) != 1) {
         printf("Incorrect value\n");
@@ -41,14 +41,12 @@ int main() {
     }
 
     if (degree != 0) {
-        result = exponentiationIteractive(number, degree);
+        result = exponentiationIterative(number, degree);
         result1 = exponentiationRecursive(number, degree);
-        result2 = linearExponentiation(number, degree);
         if (degree < 0) {
-            result = 1 / result;
             result1 = 1 / result1;
-            result2 = 1 / result2;
         }
+        result2 = linearExponentiation(number, degree);
     }
 
     printf("%.10Lf\n", result);
@@ -57,30 +55,37 @@ int main() {
     return 0;
 }
 
-float exponentiationIteractive(float number, int degree) {
-    float res = 1;
-    degree = abs(degree);
-    while (degree > 0) {
-        if (degree % 2 == 1) {
-            res = res * number;
+float exponentiationIterative(float number, int degree) {
+    float result = 1;
+    int positiveDegree = abs(degree);
+    while (positiveDegree > 0) {
+        if (positiveDegree % 2 == 1) {
+            result = result * number;
         }
         number = number * number;
-        degree = degree / 2;
+        positiveDegree = positiveDegree / 2;
     }
-    return res;
+    if (degree < 0) {
+        result = 1 / result;
+    }
+    return result;
 }
 
 float exponentiationRecursive(float number, int degree) {
-    degree = abs(degree);
-    if (degree == 0)
+    int positiveDegree = abs(degree);
+    if (positiveDegree == 0)
         return 1;
-    return number * exponentiationRecursive(number, degree - 1);
+    return number * exponentiationRecursive(number, positiveDegree - 1);
 }
 
 float linearExponentiation(float number, int degree) {
     float result = 1;
-    degree = abs(degree);
-    for (int i = 0; i < degree; ++i) {
+    int positiveDegree = abs(degree);
+    for (int i = 0; i < positiveDegree; ++i) {
         result = result * number;
     }
+    if (degree < 0) {
+        result = 1 / result;
+    }
+    return result;
 }
