@@ -66,6 +66,17 @@ bool deleteNodeWithRotatesTest() {
     return !isValueInList(tree, "110");
 }
 
+bool deleteLeftRightRotate() {
+    Tree* tree = createTree();
+    Node* root1 = NULL;
+    insertNode(tree, "300", "asd", &root1);
+    root1 = getNode(tree);
+    insertNode(tree, "345", "fre", &root1);
+    insertNode(tree, "250", "fgh", &root1);
+    insertNode(tree, "245", "tyu", &root1);
+    insertNode(tree, "247", "hhh", &root1);
+    return isValueInList(tree, "345");
+}
 
 bool tests() {
     if (!createTreeTest()) {
@@ -86,6 +97,10 @@ bool tests() {
     }
     if (!deleteNodeWithRotatesTest()) {
         printf("DeleteNodeWithRotatesTest is failed\n");
+        return false;
+    }
+    if (!deleteLeftRightRotate()) {
+        printf("DeleteLeftRightRotate is failed\n");
         return false;
     }
     printf("All tests passed\n");

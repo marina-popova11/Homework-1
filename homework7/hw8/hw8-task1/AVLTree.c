@@ -47,11 +47,9 @@ char* searchValue(Tree* tree, const char* key) {
     while (node != NULL) {
         if (strcmp(node->key, key) < 0) {
             node = node->rightChild;
-        }
-        else if (strcmp(node->key, key) > 0) {
+        } else if (strcmp(node->key, key) > 0) {
             node = node->leftChild;
-        }
-        else {
+        } else {
             return node->value;
         }
     }
@@ -96,15 +94,17 @@ int getBalance(Node* node) {
 
 Node* leftLeftRotate(Node* node, Node** root1) {
     Node* left = node->leftChild;
-    if (node == *root1) {
-        *root1 = left;
-    }
     node->leftChild = left->rightChild;
     left->rightChild = node;
     if ((*root1)->leftChild == node) {
         (*root1)->leftChild = left;
     }
-
+    if ((*root1)->rightChild == node) {
+        (*root1)->rightChild = left;
+    }
+    if (node == *root1) {
+        *root1 = left;
+    }
     node->balance = getHeight(node);
     left->balance = getHeight(left);
     return left;
@@ -113,6 +113,9 @@ Node* leftLeftRotate(Node* node, Node** root1) {
 Node* leftRightRotate(Node* node, Node** root1) {
     Node* left = node->leftChild;
     Node* leftRight = left->rightChild;
+    if ((*root1)->leftChild == node) {
+        (*root1)->leftChild = leftRight;
+    }
     if (node == *root1) {
         *root1 = leftRight;
     }
@@ -129,13 +132,16 @@ Node* leftRightRotate(Node* node, Node** root1) {
 
 Node* rightRightRotate(Node* node, Node** root1) {
     Node* right = node->rightChild;
-    if (node == *root1) {
-        *root1 = right;
-    }
     node->rightChild = right->leftChild;
     right->leftChild = node;
     if ((*root1)->rightChild == node) {
         (*root1)->rightChild = right;
+    }
+    if ((*root1)->leftChild == node) {
+        (*root1)->leftChild = right;
+    }
+    if (node == *root1) {
+        *root1 = right;
     }
     node->balance = getHeight(node);
     right->balance = getHeight(right);
@@ -145,6 +151,9 @@ Node* rightRightRotate(Node* node, Node** root1) {
 Node* rightLefttRotate(Node* node, Node** root1) {
     Node* right = node->rightChild;
     Node* rightLeft = right->leftChild;
+    if ((*root1)->rightChild == node) {
+        (*root1)->rightChild = rightLeft;
+    }
     if (node == *root1) {
         *root1 = rightLeft;
     }
@@ -165,11 +174,9 @@ Node* insertValue(Node* node, const char* key, const char* value, Node** root1) 
     }
     if (strcmp(node->key, key) < 0) {
         node->rightChild = insertValue(node->rightChild, key, value, root1);
-    }
-    else if (strcmp(node->key, key) > 0) {
+    } else if (strcmp(node->key, key) > 0) {
         node->leftChild = insertValue(node->leftChild, key, value, root1);
-    }
-    else {
+    } else {
         free(node->value);
         node->value = strdup(value);
         return node;
@@ -214,28 +221,23 @@ Node* deleteValue(Node* node, const char* key, Node** root1) {
     }
     if (strcmp(node->key, key) < 0) {
         node->rightChild = deleteValue(node->rightChild, key, root1);
-    }
-    else if (strcmp(node->key, key) > 0) {
+    } else if (strcmp(node->key, key) > 0) {
         node->leftChild = deleteValue(node->leftChild, key, root1);
-    }
-    else {
+    } else {
         free(node->value);
         if (node->rightChild == NULL && node->leftChild == NULL) {
             free(node);
             return NULL;
-        }
-        else if (node->leftChild == NULL || node->rightChild == NULL) {
+        } else if (node->leftChild == NULL || node->rightChild == NULL) {
             Node* tmp = NULL;
             if (node->leftChild != NULL) {
                 tmp = node->leftChild;
-            }
-            else {
+            } else {
                 tmp = node->rightChild;
             }
             free(node);
             return tmp;
-        }
-        else {
+        } else {
             Node* right = node->rightChild;
             Node* leftmost = right;
             while (leftmost != NULL && leftmost->leftChild != NULL) {
@@ -289,11 +291,9 @@ bool isValueInList(Tree* tree, const char* key) {
     while (current != NULL) {
         if (strcmp(current->key, key) > 0) {
             current = current->leftChild;
-        }
-        else if (strcmp(current->key, key) < 0) {
+        } else if (strcmp(current->key, key) < 0) {
             current = current->rightChild;
-        }
-        else {
+        } else {
             return true;
         }
     }
