@@ -81,7 +81,6 @@ int main(void) {
         }
     }
     freeTree(tree);
-    free(tree);
     return 0;
 }
 

@@ -40,4 +40,6 @@ bool isValueInList(Tree* tree, const char* key);
 
 bool freeTree(Tree* tree);
 
+void freeNode(Node* node);
+
 bool tests();
