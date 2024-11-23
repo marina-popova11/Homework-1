@@ -308,6 +308,7 @@ void freeNode(Node* node) {
     freeNode(node->rightChild);
 
     free(node->value);
+    free(node->key);
     free(node);
 }
 
