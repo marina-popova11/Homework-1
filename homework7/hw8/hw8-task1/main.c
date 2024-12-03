@@ -34,8 +34,7 @@ int main(void) {
             if (getNode(tree) == NULL) {
                 insertNode(tree, key, value, &root1);
                 root1 = getNode(tree);
-            }
-            else {
+            } else {
                 insertNode(tree, key, value, &root1);
             }
             break;
@@ -47,8 +46,7 @@ int main(void) {
             char* result = searchValue(tree, key);
             if (result != NULL) {
                 printf("Value for this key: %s\n", result);
-            }
-            else {
+            } else {
                 printf("There are no values for the given key\n");
             }
             break;
@@ -66,8 +64,7 @@ int main(void) {
             scanf("%s", key);
             if (isValueInList(tree, key)) {
                 printf("There is a value for this key\n");
-            }
-            else {
+            } else {
                 printf("There is no such key in the dictionary\n");
             }
             break;
