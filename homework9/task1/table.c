@@ -159,9 +159,9 @@ HashTableIterator* getIterator(HashTable* table) {
 }
 
 bool nextStep(HashTableIterator* iterator) {
-    while (iterator->element != NULL) {
+    while (iterator->element == NULL) {
         ++iterator->index;
-        if (iterator->index > iterator->table->size) {
+        if (iterator->index >= iterator->table->size) {
             return false;
         }
         iterator->element = getHeadElement(iterator->table->buckets[iterator->index]);
@@ -199,11 +199,12 @@ void deleteBuckets(HashTable* table) {
 }
 
 void printTable(HashTable* table) {
-    for (int i = 0; i < table->size; i++) {
-        Node* current = table->buckets[i];
-        while (current != NULL) {
-            printf("%s: %d\n", current->word, current->frequency);
-            current = current->next;
+    for (int i = 0; i < table->size; ++i) {
+        List* current = table->buckets[i];
+        Node* element = getHeadElement(current);
+        while (element != NULL) {
+            printf("%s: %d\n", element->word, element->frequency);
+            element = element->next;
         }
     }
 }
