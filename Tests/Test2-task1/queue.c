@@ -69,7 +69,7 @@ void enqueue(Queue* queue, int value) {
 }
 
 int dequeue(Queue* queue) {
-    if (queue->front == NULL) {
+    if (queue->countOfElement == 0) {
         return -1;
     }
     int value = queue->array[queue->front];

@@ -22,4 +22,5 @@ int dequeue(Queue* queue);
 
 void printQueue(Queue* queue);
 
+//Taking a size of queue
 int getSize(Queue* queue);
