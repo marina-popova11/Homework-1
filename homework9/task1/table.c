@@ -3,17 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include "table.h"
-
-typedef struct Node {
-    char* word;
-    int frequency;
-    struct Node* next;
-} Node;
-
-typedef struct List {
-    Node* head;
-    int length;
-} List;
+#include "List.h"
 
 typedef struct HashTable {
     List** buckets;
@@ -26,58 +16,6 @@ typedef struct HashTableIterator {
     int index;
     Node* element;
 } HashTableIterator;
-
-List* createList(void) {
-    List* list = malloc(sizeof(List));
-    if (list == NULL) {
-        return NULL;
-    }
-    list->head = NULL;
-    list->length = 0;
-    return list;
-}
-
-Node* getHeadElement(List* list) {
-    return list->head;
-}
-
-bool isEmpty(List* list) {
-    return list->head == NULL;
-}
-
-void deleteValue(List* list) {
-    if (isEmpty(list)) {
-        return;
-    }
-    --list->length;
-    Node* element = list->head;
-    list->head = list->head->next;
-    free(element->word);
-    free(element);
-}
-
-char* getValue(Node* element) {
-    return element->word;
-}
-
-int getFrequency(Node* element) {
-    return element->frequency;
-}
-
-Node* getNext(Node* element) {
-    return element->next;
-}
-
-void setFrequency(Node* element, int frequency) {
-    element->frequency = frequency;
-}
-
-void deleteList(List* list) {
-    while (!isEmpty(list)) {
-        deleteValue(list);
-    }
-    free(list);
-}
 
 HashTable* createTable(int size) {
     HashTable* table = malloc(sizeof(HashTable));
@@ -115,7 +53,7 @@ bool insertValue(HashTable* table, const char* string, int frequency) {
             setFrequency(element, frequency);
             return true;
         }
-        element = element->next;
+        element = getNext(element);
     }
 
     element = malloc(sizeof(Node));
@@ -128,6 +66,12 @@ bool insertValue(HashTable* table, const char* string, int frequency) {
     table->buckets[index]->head = element;
     ++table->countUnicWords;
     return true;
+}
+
+void deleteBuckets(HashTable* table) {
+    for (int i = 0; i < table->size; ++i) {
+        deleteList(table->buckets[i]);
+    }
 }
 
 void resizeTable(HashTable* table) {
@@ -192,19 +136,13 @@ bool getFrequencyByString(HashTable* table, const char* string, int* frequency) 
     return false;
 }
 
-void deleteBuckets(HashTable* table) {
-    for (int i = 0; i < table->size; ++i) {
-        deleteList(table->buckets[i]);
-    }
-}
-
 void printTable(HashTable* table) {
     for (int i = 0; i < table->size; ++i) {
         List* current = table->buckets[i];
         Node* element = getHeadElement(current);
         while (element != NULL) {
-            printf("%s: %d\n", element->word, element->frequency);
-            element = element->next;
+            printf("%s: %d\n", getValue(element), getFrequency(element));
+            element = getNext(element);
         }
     }
 }
@@ -222,7 +160,7 @@ float loadFactor(HashTable* table) {
         Node* element = getHeadElement(current);
         while (element != NULL) {
             count++;
-            element = element->next;
+            element = getNext(element);
         }
     }
     return (float)count / table->size;
@@ -238,7 +176,7 @@ float averageListLength(HashTable* table) {
         int length = 0;
         while (element != NULL) {
             length++;
-            element = element->next;
+            element = getNext(element);
         }
         if (length > 0) {
             totalLength += length;
@@ -258,11 +196,19 @@ int maxListLength(HashTable* table) {
         int length = 0;
         while (element != NULL) {
             length++;
-            element = element->next;
+            element = getNext(element);
         }
         if (length > maxLength) {
             maxLength = length;
         }
     }
     return maxLength;
+}
+
+int getTableSize(HashTable* table) {
+    return table->size;
+}
+
+int getTableCountOfElemenet(HashTable* table) {
+    return table->countUnicWords;
 }

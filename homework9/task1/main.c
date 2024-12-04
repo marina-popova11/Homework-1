@@ -22,6 +22,9 @@ void readFromFile(const char* filename, HashTable* table) {
 }
 
 int main() {
+    if (!tests()) {
+        return -1;
+    }
     HashTable* table = createTable(64);
 
     readFromFile("file.txt", table);
