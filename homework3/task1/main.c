@@ -8,11 +8,11 @@
 #define ARRAY_LENGTH 50
 #define LENGTH 10
 
-void print_array(int* array, int arrayLength);
+void printArray(int* array, int arrayLength);
 void createArray(int* array, int arrayLength);
 bool testCorrect();
 
-int main() {
+int main(void) {
     if (!testCorrect()) {
         printf("Test is failed\n");
         return 1;
@@ -28,7 +28,7 @@ int main() {
 
     printf("Source array:\n");
     createArray(array, ARRAY_LENGTH);
-    print_array(array, ARRAY_LENGTH);
+    printArray(array, ARRAY_LENGTH);
     int result = theMostFrequencyElement(array, ARRAY_LENGTH);
     printf("%d", result);
 
@@ -36,7 +36,7 @@ int main() {
     return 0;
 }
 
-void print_array(int* array, int arrayLength) {
+void printArray(int* array, int arrayLength) {
     printf("[");
     for (int i = 0; i < arrayLength; ++i)
         printf(" %d ", array[i]);

@@ -10,12 +10,12 @@
 #define LENGTH2 10
 #define LENGTH3 20
 
-void print_array(int* array, int arrayLength);
+void printArray(int* array, int arrayLength);
 void createArray(int* array, int arrayLength);
 bool testCorrect();
 bool testCorrect1();
 
-int main() {
+int main(void) {
     if (!testCorrect() || !testCorrect1()) {
         printf("Test is failed!\n");
         return 1;
@@ -31,11 +31,11 @@ int main() {
 
     printf("Sourse array:\n");
     createArray(array, LENGTH);
-    print_array(array, LENGTH);
+    printArray(array, LENGTH);
 
     printf("\nSorted array:\n");
     smartQuicksort(array, 0, LENGTH - 1);
-    print_array(array, LENGTH);
+    printArray(array, LENGTH);
 
     free(array);
     return 0;
@@ -47,7 +47,7 @@ void createArray(int* array, int arrayLength) {
     }
 }
 
-void print_array(int* array, int arrayLength) {
+void printArray(int* array, int arrayLength) {
     printf("[");
     for (int i = 0; i < arrayLength; ++i) {
         printf(" %d ", array[i]);

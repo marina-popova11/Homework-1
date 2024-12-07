@@ -8,11 +8,11 @@
 #include "SortAndSearch.h"
 
 void createArray(int* array, int arrayLength);
-void print_array(int* array, int arrayLength);
+void printArray(int* array, int arrayLength);
 bool testCorrect();
 bool testCorrect1();
 
-int main() {
+int main(void) {
     if (!testCorrect() || testCorrect1()) {
         printf("Tests failed\n");
         return 1;
@@ -35,7 +35,7 @@ int main() {
     }
     printf("\nSourse array:\n");
     createArray(array, n);
-    print_array(array, n);
+    printArray(array, n);
     printf("\n");
 
     smartQuicksort(array, 0, n - 1);
@@ -62,7 +62,7 @@ void createArray(int* array, int arrayLength) {
     }
 }
 
-void print_array(int* array, int arrayLength) {
+void printArray(int* array, int arrayLength) {
     printf("[");
     for (int i = 0; i < arrayLength; ++i) {
         printf(" %d ", array[i]);
