@@ -21,7 +21,7 @@ int binaryToDecimal(const char* binaryString) {
     return decimalValue;
 }
 
-int main() {
+int main(void) {
     if (!testBinToDec()) {
         return -1;
     }
