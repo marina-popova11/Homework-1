@@ -27,7 +27,7 @@ int main() {
     }
     char binaryString[65];
     printf("Enter string:\n");
-    scanf("%64s", binaryString);
+    scanf("%s", binaryString);
 
     int decimalValue = binaryToDecimal(binaryString);
     printf("decimal: %d\n", decimalValue);
