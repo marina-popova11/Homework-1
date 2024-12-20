@@ -31,8 +31,9 @@ void quickSort(int* array, int left, int right) {
 }
 
 int theMostFrequencyElement(int* array, int arraylength) {
-    if (arraylength == 0)
+    if (arraylength == 0) {
         return 0;
+    }
     quickSort(array, 0, arraylength - 1);
 
     int element = array[0];

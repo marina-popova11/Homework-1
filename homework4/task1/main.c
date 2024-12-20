@@ -24,19 +24,19 @@ int main(void) {
     int m1 = scanf("%u\n\n", &m);
 
     printf("The first number in binary:\n");
-    int resn[8];
-    binN(n, resn);
-    print(resn, 8);
+    int resultn[8];
+    binN(n, resultn);
+    print(resultn, 8);
 
     printf("The second number in binary:\n");
-    int resm[8];
-    binN(m, resm);
-    print(resm, 8);
+    int resultm[8];
+    binN(m, resultm);
+    print(resultm, 8);
 
     printf("\n");
     printf("The sum of binary numbers:\n");
     int result[8];
-    sum(resn, resm, result);
+    sum(resultn, resultm, result);
     print(result, 8);
 
     printf("The sum in decimal notation:\n");
@@ -101,13 +101,14 @@ int sum(int* num1, int* num2, int* array) {
 }
 
 void print(int* array, int arrayLength) {
-    for (int i = 0; i < arrayLength; ++i)
+    for (int i = 0; i < arrayLength; ++i) {
         printf("%d", array[i]);
+    }
     printf("\n");
 }
 
 int decimalisation(int* array) {
-    int dec_value = 0;
+    int decValue = 0;
     int base = 1;
     if (array[0] == 1) {
         int result[8];
@@ -117,29 +118,29 @@ int decimalisation(int* array) {
             result[i] = 1 - result[i];
         }
         for (int i = 7; i >= 0; --i) {
-            dec_value += result[i] * base;
+            decValue += result[i] * base;
             base *= 2;
         }
-        return dec_value * (-1);
+        return decValue * (-1);
     }
     for (int i = 7; i >= 0; --i) {
-        dec_value += array[i] * base;
+        decValue += array[i] * base;
         base *= 2;
     }
-    return dec_value;
+    return decValue;
 }
 
 bool testSumInBin() {
     int n = 12;
     int m = -10;
 
-    int array_n[8];
-    binN(n, array_n);
-    int array_m[8];
-    binN(m, array_m);
+    int arrayFirstNumber[8];
+    binN(n, arrayFirstNumber);
+    int arraySecondNumber[8];
+    binN(m, arraySecondNumber);
 
     int result[8];
-    sum(array_n, array_m, result);
+    sum(arrayFirstNumber, arraySecondNumber, result);
 
     int binResultSum[8] = { 0, 0, 0, 0, 0, 0, 1, 0 };
     for (int i = 0; i < 8; ++i) {
@@ -148,21 +149,21 @@ bool testSumInBin() {
 }
 
 bool testBinToDec() {
-    int array_1[8] = { 1, 1, 1, 1, 0, 1, 0, 0 };
-    return decimalisation(array_1) == -12;
+    int arrayFirstNumber[8] = { 1, 1, 1, 1, 0, 1, 0, 0 };
+    return decimalisation(arrayFirstNumber) == -12;
 }
 
 bool testSimInDec() {
     int num1 = -120;
     int num2 = 100;
 
-    int array_1[8];
-    binN(num1, array_1);
-    int array_2[8];
-    binN(num2, array_2);
+    int arrayFirstNumber[8];
+    binN(num1, arrayFirstNumber);
+    int arraySecondNumber[8];
+    binN(num2, arraySecondNumber);
 
     int result[8];
-    sum(array_1, array_2, result);
+    sum(arrayFirstNumber, arraySecondNumber, result);
 
     return decimalisation(result) == -20;
 }

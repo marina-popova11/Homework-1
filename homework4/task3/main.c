@@ -51,8 +51,7 @@ int main(void) {
 
             if (searchedPhoneNumber == NULL) {
                 printf("That number doesn't exist for this name!\n");
-            }
-            else {
+            } else {
                 printf("Found number: %s\n", searchedPhoneNumber);
             }
             break;
@@ -64,8 +63,7 @@ int main(void) {
 
             if (searchedName == NULL) {
                 printf("That name doesn't exist for this phone number!\n");
-            }
-            else {
+            } else {
                 printf("Found name: %s\n", searchedName);
             }
             break;

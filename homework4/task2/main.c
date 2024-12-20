@@ -26,8 +26,9 @@ int main(void) {
     int numsRead = 0;
     while (!feof(file)) {
         const int filledFormatSpecifiers = fscanf(file, "%d", &data[numsRead]);
-        if (filledFormatSpecifiers < 0)
+        if (filledFormatSpecifiers < 0) {
             break;
+        }
         ++numsRead;
     }
     fclose(file);
@@ -38,7 +39,7 @@ int main(void) {
     return 0;
 }
 
-void print_array(int* array, int arrayLength) {
+void printArray(int* array, int arrayLength) {
     printf("[");
     for (int i = 0; i < arrayLength; ++i) {
         printf(" %d ", array[i]);
@@ -48,10 +49,10 @@ void print_array(int* array, int arrayLength) {
 
 bool testQuickSort() {
     int array[15] = { 2, 4, 55, 21, 3, 2, 8, 18, 5, 3, 5, 19, 18, 2, 18 };
-    int sorted_array[15] = { 2, 2, 2, 3, 3, 3, 4, 5, 5, 8, 18, 18, 18, 19, 55 };
+    int sortedArray[15] = { 2, 2, 2, 3, 3, 3, 4, 5, 5, 8, 18, 18, 18, 19, 55 };
     quickSort(array, 0, 15 - 1);
     for (int i = 0; i < 15; ++i) {
-        return array[i] == sorted_array[i];
+        return array[i] == sortedArray[i];
     }
 }
 
