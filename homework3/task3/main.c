@@ -56,29 +56,29 @@ void printArray(int* array, int arrayLength) {
 }
 
 bool testCorrect() {
-    int array_1[LENGTH2] = { 4, 2, 5, 3, 6, 3, 1, 7, 5, 8 };
-    int sorted_array[LENGTH2] = { 1, 2, 3, 3, 4, 5, 5, 6, 7, 8 };
-    sortByInserts(array_1, 0, LENGTH2 - 1);
+    int array1[LENGTH2] = { 4, 2, 5, 3, 6, 3, 1, 7, 5, 8 };
+    int sortedArray[LENGTH2] = { 1, 2, 3, 3, 4, 5, 5, 6, 7, 8 };
+    insertionSort(array1, 0, LENGTH2 - 1);
     for (int i = 0; i < LENGTH2; ++i) {
-        if (array_1[i] != sorted_array[i])
+        if (array1[i] != sortedArray[i])
             return false;
     }
     return true;
 }
 
 bool testCorrect1() {
-    int* array_2 = malloc(LENGTH3 * sizeof(int));
-    if (array_2 == NULL) {
+    int* array2 = malloc(LENGTH3 * sizeof(int));
+    if (array2 == NULL) {
         printf("Failed to allicated array\n");
         return 1;
     }
-    createArray(array_2, LENGTH3);
-    smartQuicksort(array_2, 0, LENGTH3 - 1);
+    createArray(array2, LENGTH3);
+    smartQuicksort(array2, 0, LENGTH3 - 1);
     for (int i = 1; i < LENGTH3; ++i) {
-        if (array_2[i] >= array_2[i - 1]) {
+        if (array2[i] >= array2[i - 1]) {
             return true;
         }
     }
-    free(array_2);
+    free(array2);
     return false;
 }

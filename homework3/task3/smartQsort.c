@@ -3,7 +3,16 @@
 #include <stdio.h>
 #include <string.h>
 
-void sortByInserts(int* array, int left, int right) {
+void swap(int* first, int* second) {
+    if (*first == *second) {
+        return;
+    }
+    *first ^= *second;
+    *second ^= *first;
+    *first ^= *second;
+}
+
+void insertionSort(int* array, int left, int right) {
     int element = 0;
     int position = 0;
 
@@ -11,9 +20,7 @@ void sortByInserts(int* array, int left, int right) {
         element = array[i];
         position = i;
         while (position > 0 && array[position - 1] > element) {
-            int num = array[position - 1];
-            array[position - 1] = array[position];
-            array[position] = num;
+            swap(&array[position - 1], &array[position]);
             position -= 1;
         }
     }
@@ -21,22 +28,22 @@ void sortByInserts(int* array, int left, int right) {
 
 int halfQsort(int* array, int left, int right) {
     int supportElement = array[left];
-    int i = left - 1;
-    int j = right + 1;
+    int leftIndex = left - 1;
+    int rightIndex = right + 1;
 
-    while (i <= j) {
-        ++i;
-        --j;
-        while (array[i] < supportElement) ++i;
-        while (array[j] > supportElement) --j;
-        if (i >= j) {
+    while (leftIndex <= rightIndex) {
+        ++leftIndex;
+        --rightIndex;
+        while (array[leftIndex] < supportElement) ++leftIndex;
+        while (array[rightIndex] > supportElement) --rightIndex;
+        if (leftIndex >= rightIndex) {
             break;
         }
-        int num = array[i];
-        array[i] = array[j];
-        array[j] = num;
+        int num = array[leftIndex];
+        array[leftIndex] = array[rightIndex];
+        array[rightIndex] = num;
     }
-    return j;
+    return rightIndex;
 }
 
 void quickSort(int* array, int left, int right) {
@@ -49,7 +56,7 @@ void quickSort(int* array, int left, int right) {
 
 void smartQuicksort(int* array, int left, int right) {
     if (right - left + 1 <= 10) {
-        sortByInserts(array, left, right);
+        insertionSort(array, left, right);
         return;
     }
 
