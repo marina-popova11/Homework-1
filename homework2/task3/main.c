@@ -11,7 +11,8 @@ static bool testExponentiationIterative() {
 }
 
 static bool testExponentiationRecursive() {
-    return exponentiationRecursive(2, -4) == 0,0625;
+    const double epsilon = 0.000001;
+    return exponentiationRecursive(2, -4) > 0.0625 - epsilon;
 }
 
 static bool testLinearExponentiation() {
@@ -26,32 +27,31 @@ int main() {
 
     float number = 0;
     int degree = 0;
-    float result = 1;
-    float result1 = 1;
-    float result2 = 1;
+    float resultExponentiationIterative = 1;
+    float resultExponentiationRecursive = 1;
+    float resultLinearExponentiation = 1;
 
+    printf("Enter the number:");
     if (scanf("%f", &number) != 1) {
         printf("Incorrect value\n");
         return 1;
     }
 
+    printf("Enter the degree:");
     if (scanf("%d", &degree) != 1) {
         printf("Incorrect value\n");
         return 1;
     }
 
     if (degree != 0) {
-        result = exponentiationIterative(number, degree);
-        result1 = exponentiationRecursive(number, degree);
-        if (degree < 0) {
-            result1 = 1 / result1;
-        }
-        result2 = linearExponentiation(number, degree);
+        resultExponentiationIterative = exponentiationIterative(number, degree);
+        resultExponentiationRecursive = exponentiationRecursive(number, degree);
+        resultLinearExponentiation = linearExponentiation(number, degree);
     }
 
-    printf("%.10Lf\n", result);
-    printf("%.10Lf\n", result1);
-    printf("%.10Lf\n", result2);
+    printf("%.10Lf\n", resultExponentiationIterative);
+    printf("%.10Lf\n", resultExponentiationRecursive);
+    printf("%.10Lf\n", resultLinearExponentiation);
     return 0;
 }
 
@@ -72,10 +72,14 @@ float exponentiationIterative(float number, int degree) {
 }
 
 float exponentiationRecursive(float number, int degree) {
-    int positiveDegree = abs(degree);
-    if (positiveDegree == 0)
+    if (degree == 0) {
         return 1;
-    return number * exponentiationRecursive(number, positiveDegree - 1);
+    }
+    if (degree < 0) {
+        return 1 / exponentiationRecursive(number, abs(degree));
+    } else {
+        return number * exponentiationRecursive(number, degree - 1);
+    }
 }
 
 float linearExponentiation(float number, int degree) {
