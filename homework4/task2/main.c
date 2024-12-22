@@ -6,7 +6,7 @@
 
 #define LENGTH 1000
 
-void print_array(int* array, int arrayLength);
+void printArray(int* array, int arrayLength);
 bool testQuickSort();
 bool testMostFrequencyElement();
 

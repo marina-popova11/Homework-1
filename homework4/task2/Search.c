@@ -2,24 +2,35 @@
 
 #include <stdio.h>
 
+void swap(int* first, int* second) {
+    if (*first == *second) {
+        return;
+    }
+    *first ^= *second;
+    *second ^= *first;
+    *first ^= *second;
+}
+
 int halfQsort(int* array, int left, int right) {
     int supportElement = array[left];
-    int i = left - 1;
-    int j = right + 1;
+    int leftIndex = left - 1;
+    int rightIndex = right + 1;
 
-    while (i <= j) {
-        ++i;
-        --j;
-        while (array[i] < supportElement) ++i;
-        while (array[j] > supportElement) --j;
-        if (i >= j) {
+    while (leftIndex <= rightIndex) {
+        ++leftIndex;
+        --rightIndex;
+        while (array[leftIndex] < supportElement) {
+            ++leftIndex;
+        }
+        while (array[rightIndex] > supportElement) {
+            --rightIndex;
+        }
+        if (leftIndex >= rightIndex) {
             break;
         }
-        int num = array[i];
-        array[i] = array[j];
-        array[j] = num;
+        swap(&array[leftIndex], &array[rightIndex]);
     }
-    return j;
+    return rightIndex;
 }
 
 void quickSort(int* array, int left, int right) {
@@ -51,7 +62,7 @@ int theMostFrequencyElement(int* array, int arraylength) {
             quantity = 0;
             element = array[i];
         }
-        quantity++;
+        ++quantity;
     }
 
     if (quantity > maxCount) {
