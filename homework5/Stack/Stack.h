@@ -20,7 +20,7 @@ int peek(Stack* stack);
 bool isEmpty(Stack* stack);
 
 //clearing the stack
-void clearStack(Stack* stack);
+void clearStack(Stack** stack);
 
 //getting the stack length
 int stackSize(Stack* stack);
