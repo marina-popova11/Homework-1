@@ -28,7 +28,12 @@ bool push(Stack* stack, int value) {
     return true;
 }
 
-int pop(Stack* stack) {
+int pop(Stack* stack, int *errorCode) {
+    if (stack->head == NULL) {
+        *errorCode = -1;
+        return -1;
+    }
+    errorCode = 0;
     Element* ptr = stack->head;
     int value = stack->head->value;
     stack->head = stack->head->next;
@@ -37,6 +42,9 @@ int pop(Stack* stack) {
 }
 
 int peek(Stack* stack) {
+    if (isEmpty(stack)) {
+        return -1;
+    }
     return stack->head->value;
 }
 
@@ -50,15 +58,17 @@ void clearStack(Stack* stack) {
     }
 
     while (!isEmpty(stack)) {
-        Element* head = stack->head;
-        stack->head = head->next;
-        free(head);
+        int errorCode = 0;
+        pop(stack, &errorCode);
+        if (errorCode < 0) {
+            break;
+        }
     }
 }
 
 int stackSize(Stack* stack) {
     int size = 0;
-    void* ptr = stack->head;
+    Element* ptr = stack->head;
     while (!isEmpty(stack)) {
         stack->head = stack->head->next;
         ++size;
