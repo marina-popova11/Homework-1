@@ -28,7 +28,7 @@ bool push(Stack* stack, int value) {
     return true;
 }
 
-int pop(Stack* stack, int *errorCode) {
+int pop(Stack* stack, int* errorCode) {
     if (stack->head == NULL) {
         *errorCode = -1;
         return -1;
@@ -49,21 +49,23 @@ int peek(Stack* stack) {
 }
 
 bool isEmpty(Stack* stack) {
+    if (stack == NULL) {
+        return true;
+    }
     return stack->head == NULL;
 }
 
-void clearStack(Stack* stack) {
-    if (stack == NULL) {
-        return;
-    }
-
-    while (!isEmpty(stack)) {
+void clearStack(Stack** stack) {
+    Stack* tmpStack = *stack;
+    while (isEmpty(*stack)) {
         int errorCode = 0;
-        pop(stack, &errorCode);
+        pop(*stack, &errorCode);
         if (errorCode < 0) {
             break;
         }
     }
+    free(tmpStack);
+    *stack = NULL;
 }
 
 int stackSize(Stack* stack) {

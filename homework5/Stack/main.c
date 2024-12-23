@@ -57,7 +57,7 @@ bool clearStackTest() {
     push(ptr, 3);
     push(ptr, 4);
 
-    clearStack(ptr);
+    clearStack(&ptr);
     return isEmpty(ptr);
 }
 
