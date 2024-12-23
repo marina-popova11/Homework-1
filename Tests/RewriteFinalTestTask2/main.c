@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stdbool.h>
 #include "list.h"
 
@@ -32,7 +33,7 @@ bool listTheSame(List* list1, List* list2) {
         element1 = getNext(element1);
         element2 = getNext(element2);
     }
-    return (getNext(element1) == NULL && getNext(element2) == NULL ? true : false);
+    return getNext(element1) == NULL && getNext(element2) == NULL;
 }
 
 bool testAddStringWithA() {

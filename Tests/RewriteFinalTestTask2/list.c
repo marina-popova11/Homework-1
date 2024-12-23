@@ -14,12 +14,7 @@ typedef struct List {
 } List;
 
 List* createList(void) {
-    List* list = malloc(sizeof(List));
-    if (list == NULL) {
-        return NULL;
-    }
-    list->head = NULL;
-    return list;
+    return calloc(1, sizeof(List));
 }
 
 bool insertValueAtTheEnd(List* list, char* value) {
@@ -27,7 +22,7 @@ bool insertValueAtTheEnd(List* list, char* value) {
     if (element == NULL) {
         return false;
     }
-    element->value = strdup(value);
+    element->value = _strdup(value);
     element->next = NULL;
     if (list->head == NULL) {
         list->head = element;
@@ -56,20 +51,21 @@ bool addStringWithA(List** list) {
         }
         tmp = tmp->next;
     }
-    free(*list);
+    deleteList(*list);
     *list = newList;
     return true;
 }
 
 void deleteList(List* list) {
     ListElement* current = list->head;
-    ListElement* temp = NULL;
-    while (current != NULL) {
-        temp = current->next;
-        free(current);
-        current = temp;
+    while (current->next != NULL) {
+        ListElement* tmp = current;
+        current = current->next;
+        free(tmp->value);
+        free(tmp);
     }
-    list->head = NULL;
+    free(current->value);
+    free(current);
 }
 
 //get listLength
