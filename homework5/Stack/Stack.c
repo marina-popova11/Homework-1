@@ -57,7 +57,7 @@ bool isEmpty(Stack* stack) {
 
 void clearStack(Stack** stack) {
     Stack* tmpStack = *stack;
-    while (tmpStack->head != NULL/*isEmpty(*stack)*/) {
+    while (isEmpty(*stack)) {
         int errorCode = 0;
         pop(*stack, &errorCode);
         if (errorCode < 0) {
