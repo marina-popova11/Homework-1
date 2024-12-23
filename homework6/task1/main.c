@@ -10,7 +10,6 @@ void printList(List* list);
 void addElementToSortedList(List* list, Value value);
 void deleteElementFromSortedList(List* list, Value value);
 
-
 int main() {
     List* list = createList();
     Position position = first(list);
