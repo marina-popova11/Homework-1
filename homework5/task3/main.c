@@ -76,7 +76,7 @@ void infixToPostfix(const char* infix, char* postfix) {
     if (stack == NULL) {
         return NULL;
     }
-
+    int errorCode = 0;
     int i = 0, j = 0;
     while (infix[i] != '\0') {
         char character = infix[i];
@@ -88,10 +88,10 @@ void infixToPostfix(const char* infix, char* postfix) {
             while (peek(stack) != '(') {
                 char element = peek(stack);
                 postfix[j] = element;
-                pop(stack);
+                pop(stack, &errorCode);
                 ++j;
             }
-            pop(stack);
+            pop(stack, &errorCode);
             break;
         case '+':
         case '-':
@@ -102,7 +102,7 @@ void infixToPostfix(const char* infix, char* postfix) {
                 break;
             }
             while (!isEmpty(stack) && operators(peek(stack)) >= operators(character)) {
-                postfix[j] = pop(stack);
+                postfix[j] = pop(stack, &errorCode);
                 ++j;
             }
             push(stack, character);
@@ -115,8 +115,8 @@ void infixToPostfix(const char* infix, char* postfix) {
         ++i;
     }
     while (!isEmpty(stack)) {
-        postfix[j] = pop(stack);
+        postfix[j] = pop(stack, &errorCode);
         ++j;
-    }
+    } 
     postfix[j] = '\0';
 }
