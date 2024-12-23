@@ -21,10 +21,11 @@ bool popTest() {
     push(ptr, 3);
     push(ptr, 4);
     push(ptr, 5);
+    int errorCode = 0;
 
-    pop(ptr);
-    pop(ptr);
-    return pop(ptr) == 3;
+    pop(ptr, &errorCode);
+    pop(ptr, &errorCode);
+    return pop(ptr, &errorCode) == 3;
 }
 
 bool peekTest() {
@@ -42,9 +43,9 @@ bool isEmptyTest() {
     push(ptr, 2);
     push(ptr, 3);
     push(ptr, 4);
-
+    int errorCode = 0;
     while (!isEmpty(ptr)) {
-        pop(ptr);
+        pop(ptr, &errorCode);
     }
     return isEmpty(ptr);
 }

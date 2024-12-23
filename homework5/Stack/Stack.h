@@ -11,7 +11,7 @@ Stack* createStack();
 bool push(Stack* stack, int value);
 
 //function of removing an item from the stack
-int pop(Stack* stack);
+int pop(Stack* stack, int* errorCode);
 
 //a function that outputs the top item on the stack
 int peek(Stack* stack);
