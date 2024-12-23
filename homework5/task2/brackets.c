@@ -6,7 +6,7 @@
 #include "../Stack/Stack.h"
 
 char* enteringLine();
-bool isBalance(const char* string);
+bool isBalance(const char* string, int *errorCode);
 bool isBalanceTest();
 
 int main() {
@@ -18,8 +18,8 @@ int main() {
     if (inputString == NULL) {
         return 1;
     }
-
-    if (isBalance(inputString)) {
+    int errorCode = 0;
+    if (isBalance(inputString, &errorCode)) {
         printf("It is a balance!\n");
         return 0;
     } else {
@@ -66,7 +66,7 @@ char* enteringLine() {
     return inputString;
 }
 
-bool isBalance(const char* string) {
+bool isBalance(const char* string, int *errorCode) {
     Stack* stack = createStack();
     if (stack == NULL) {
         return false;
@@ -87,7 +87,7 @@ bool isBalance(const char* string) {
                     return false;
                 }
                 if ('(' == peek(stack)) {
-                    pop(stack);
+                    pop(stack, errorCode);
                     break;
                 }
             case ']':
@@ -96,7 +96,7 @@ bool isBalance(const char* string) {
                     return false;
                 }
                 if ('[' == peek(stack)) {
-                    pop(stack);
+                    pop(stack, errorCode);
                     break;
                 }
             case '}':
@@ -105,7 +105,7 @@ bool isBalance(const char* string) {
                     return false;
                 }
                 if ('{' == peek(stack)) {
-                    pop(stack);
+                    pop(stack, errorCode);
                     break;
                 }  
         }
@@ -115,5 +115,6 @@ bool isBalance(const char* string) {
 
 bool isBalanceTest() {
     char string[] = "(){}[()]";
-    return isBalance(string);
+    int errorCode = 0;
+    return isBalance(string, &errorCode);
 }
