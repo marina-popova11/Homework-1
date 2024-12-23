@@ -23,16 +23,16 @@ int main(void) {
 
 //for the test: compares the lists
 bool listTheSame(List* list1, List* list2) {
-    ListElement* element1 = list1->head;
-    ListElement* element2 = list2->head;
-    while (element1->next != NULL && element2->next != NULL) {
-        if (strcmp(element1->value, element2->value) != 0) {
+    ListElement* element1 = getHead(list1);
+    ListElement* element2 = getHead(list2);
+    while (getNext(element1) != NULL && getNext(element2) != NULL) {
+        if (strcmp(getValue(element1), getValue(element2)) != 0) {
             return false;
         }
-        element1 = element1->next;
-        element2 = element2->next;
+        element1 = getNext(element1);
+        element2 = getNext(element2);
     }
-    return (element1->next == NULL && element2->next == NULL ? true : false);
+    return (getNext(element1) == NULL && getNext(element2) == NULL ? true : false);
 }
 
 bool testAddStringWithA() {

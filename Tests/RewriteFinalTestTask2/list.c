@@ -2,8 +2,16 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <assert.h>
 #include "list.h"
+
+typedef struct ListElement {
+    char* value;
+    struct ListElement* next;
+} ListElement;
+
+typedef struct List {
+    ListElement* head;
+} List;
 
 List* createList(void) {
     List* list = malloc(sizeof(List));
@@ -64,6 +72,7 @@ void deleteList(List* list) {
     list->head = NULL;
 }
 
+//get listLength
 int listLength(List* list) {
     ListElement* element = list->head;
     int length = 1;
@@ -81,4 +90,16 @@ void printList(List* list) {
         element = element->next;
     }
     printf("\n");
+}
+
+ListElement* getHead(List* list) {
+    return list->head;
+}
+
+ListElement* getNext(ListElement* element) {
+    return element->next;
+}
+
+char* getValue(ListElement* element) {
+    return element->value;
 }
