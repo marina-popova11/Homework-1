@@ -119,4 +119,5 @@ void infixToPostfix(const char* infix, char* postfix) {
         ++j;
     } 
     postfix[j] = '\0';
+    clearStack(&stack);
 }
