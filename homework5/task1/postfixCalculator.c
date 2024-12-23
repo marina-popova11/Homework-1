@@ -6,7 +6,7 @@
 #include "../Stack/Stack.h"
 
 bool operations(char operand, Stack* stack);
-int calculator(const char* inputString);
+int calculator(const char* inputString, int *errorCode);
 char* enteringLine(void);
 bool calculatorTest();
 
@@ -17,17 +17,19 @@ int main(void) {
     printf("Enter an expression that is in a postfix form (using only characters \"0123456789+-*/\"): ");
     char* inputString = enteringLine();
     if (inputString == NULL) {
-        return 1;
+        return -1;
     }
+    int errorCode = 0;
     printf("%s\n", inputString);
-    int result = calculator(inputString);
+    int result = calculator(inputString, &errorCode);
     printf("%d\n", result);
     return 0;
 }
 
 bool operations(char operand, Stack* stack) {
-    int upperElement = pop(stack);
-    int bottomElement = pop(stack);
+    int errorCode = 0;
+    int upperElement = pop(stack, &errorCode);
+    int bottomElement = pop(stack, &errorCode);
 
     switch (operand) {
     case '+': {
@@ -58,11 +60,8 @@ bool operations(char operand, Stack* stack) {
     return true;
 }
 
-int calculator(const char* inputString) {
+int calculator(const char* inputString, int *errorCode) {
     Stack* stack = createStack();
-    if (stack == NULL) {
-        return -1;
-    }
     char* currentString = inputString;
     int length = strlen(currentString);
 
@@ -88,6 +87,7 @@ int calculator(const char* inputString) {
     if (!isEmpty(stack)) {
         return peek(stack);
     }
+    *errorCode = -1;
     return -1;
 }
 
@@ -131,5 +131,6 @@ char* enteringLine(void) {
 
 bool calculatorTest() {
     char string[] = "45+3-";
-    return calculator(string) == 6;
+    int errorCode = 0;
+    return calculator(string, &errorCode) == 6;
 }
