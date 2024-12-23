@@ -3,13 +3,12 @@
 #include <stdbool.h>
 #include <math.h>
 
-#define MAX_LENGTH 8
+#define MAX_LENGTH (sizeof(int) * 8)
 
-int decToBin(int number, int* array);
-int sum(int* num1, int* num2, int* array);
+void decToBin(int number, int* array);
+void sum(int* number1, int* number2, int* answer);
 int binToDec(int* array);
-void print(int* array, int arrayLength);
-int arrayToInt(int* array);
+void printBin(int* array);
 bool testSumInBin();
 bool testBinToDec();
 bool testSimInDec();
@@ -20,26 +19,27 @@ int main(void) {
         return 1;
     }
 
-    int n, m;
+    int n = 0;
+    int m = 0;
     printf("Enter the numbers from -128 to 127:\n");
-    int n1 = scanf("%u\n", &n);
-    int m1 = scanf("%u\n\n", &m);
+    int n1 = scanf("%u", &n);
+    int m1 = scanf("%u", &m);
 
     printf("The first number in binary:\n");
-    int resultn[MAX_LENGTH];
+    int resultn[MAX_LENGTH] = { 0 };
     decToBin(n, resultn);
-    print(resultn, MAX_LENGTH);
+    printBin(resultn);
 
     printf("The second number in binary:\n");
-    int resultm[MAX_LENGTH];
+    int resultm[MAX_LENGTH] = { 0 };
     decToBin(m, resultm);
-    print(resultm, MAX_LENGTH);
+    printBin(resultm);
 
     printf("\n");
     printf("The sum of binary numbers:\n");
-    int result[MAX_LENGTH];
+    int result[MAX_LENGTH] = { 0 };
     sum(resultn, resultm, result);
-    print(result, MAX_LENGTH);
+    printBin(result);
 
     printf("The sum in decimal notation:\n");
     printf("%d", binToDec(result));
@@ -47,58 +47,46 @@ int main(void) {
     return 0;
 }
 
-int decToBin(int number, int* array) {
-    int n = abs(number);
-    int binaryNumbers[MAX_LENGTH] = { 0 };
-    for (int i = 0; i < MAX_LENGTH - 1; ++i) {
-        binaryNumbers[MAX_LENGTH - 1 - i] = (n % 2);
-        n /= 2;
-    }
-    if (number < 0) {
-        for (int i = 0; i < MAX_LENGTH; ++i) {
-            binaryNumbers[i] = 1 - binaryNumbers[i];
-        }
-        int unit[MAX_LENGTH] = { 0, 0, 0, 0, 0, 0, 0, 1 };
-        sum(binaryNumbers, unit, array);
-        return array;
-    }
-    for (int i = 0; i < MAX_LENGTH; ++i) {
-        array[i] = binaryNumbers[i];
-    }
-    return array;
-}
-
-int arrayToInt(int* array) {
-    int number = 0;
-    for (int i = 0; i < MAX_LENGTH; ++i) {
-        number = 10 * number + array[i];
-    }
-    return number;
-}
-
-int sum(int* num1, int* num2, int* array) {
-    int memory = 0;
+void decToBin(int number, int* array) {
+    int mask = 1;
     for (int i = MAX_LENGTH - 1; i >= 0; --i) {
-        int result = num1[i] + num2[i] + memory;
-        if (result == 0) {
-            array[i] = 0;
-            memory = 0;
-        } else if (result == 1){
-            array[i] = 1;
-            memory = 0;
-        } else if (result == 2) {
-            array[i] = 0;
-            memory = 1;
-        } else if (result == 3) {
-            array[i] = 1;
-            memory = 1;
-        }
+        array[i] = ((number & mask) ? 1 : 0);
+        number >>= 1;
     }
-    return array;
 }
 
-void print(int* array, int arrayLength) {
-    for (int i = 0; i < arrayLength; ++i) {
+void sum(int* number1, int* number2, int* answer) {
+    int buffer = 0;
+
+    for (int i = MAX_LENGTH - 1; i >= 0; --i) {
+        int result = number1[i] + number2[i] + buffer;
+
+        switch (result) {
+            case 0:
+                answer[i] = 0;
+                buffer = 0;
+                break;
+            case 1:
+                answer[i] = 1;
+                buffer = 0;
+                break;
+            case 2:
+                buffer = 1;
+                answer[i] = 0;
+                break;
+            case 3:
+                buffer = 1;
+                answer[i] = 1;
+                break;
+            default:
+                printf("Unexpected error\n");
+        }
+    }
+    return answer;
+}
+
+void printBin(int* array) {
+    for (int i = 0; i < MAX_LENGTH; ++i) {
         printf("%d", array[i]);
     }
     printf("\n");
@@ -107,19 +95,6 @@ void print(int* array, int arrayLength) {
 int binToDec(int* array) {
     int decValue = 0;
     int base = 1;
-    if (array[0] == 1) {
-        int result[MAX_LENGTH];
-        int unit[MAX_LENGTH] = { 1, 1, 1, 1, 1, 1, 1, 1 };
-        sum(array, unit, result);
-        for (int i = 0; i < MAX_LENGTH; ++i) {
-            result[i] = 1 - result[i];
-        }
-        for (int i = MAX_LENGTH - 1; i >= 0; --i) {
-            decValue += result[i] * base;
-            base *= 2;
-        }
-        return decValue * (-1);
-    }
     for (int i = MAX_LENGTH - 1; i >= 0; --i) {
         decValue += array[i] * base;
         base *= 2;
@@ -131,35 +106,34 @@ bool testSumInBin() {
     int n = 12;
     int m = -10;
 
-    int arrayFirstNumber[MAX_LENGTH];
+    int arrayFirstNumber[MAX_LENGTH] = { 0 };
     decToBin(n, arrayFirstNumber);
-    int arraySecondNumber[MAX_LENGTH];
+    int arraySecondNumber[MAX_LENGTH] = { 0 };
     decToBin(m, arraySecondNumber);
 
-    int result[MAX_LENGTH];
+    int result[MAX_LENGTH] = { 0 };
     sum(arrayFirstNumber, arraySecondNumber, result);
 
-    int binResultSum[MAX_LENGTH] = { 0, 0, 0, 0, 0, 0, 1, 0 };
-    for (int i = 0; i < MAX_LENGTH; ++i) {
-        return result[i] == binResultSum[i];
-    }
+    return binToDec(result) == 2;
 }
 
 bool testBinToDec() {
-    int arrayFirstNumber[MAX_LENGTH] = { 1, 1, 1, 1, 0, 1, 0, 0 };
-    return binToDec(arrayFirstNumber) == -12;
+    int number = -12;
+    int binNumber[MAX_LENGTH] = { 0 };
+    decToBin(number, binNumber);
+    return binToDec(binNumber) == -12;
 }
 
 bool testSimInDec() {
     int num1 = -120;
     int num2 = 100;
 
-    int arrayFirstNumber[MAX_LENGTH];
+    int arrayFirstNumber[MAX_LENGTH] = { 0 };
     decToBin(num1, arrayFirstNumber);
-    int arraySecondNumber[MAX_LENGTH];
+    int arraySecondNumber[MAX_LENGTH] = { 0 };
     decToBin(num2, arraySecondNumber);
 
-    int result[MAX_LENGTH];
+    int result[MAX_LENGTH] = { 0 };
     sum(arrayFirstNumber, arraySecondNumber, result);
 
     return binToDec(result) == -20;

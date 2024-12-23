@@ -4,11 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define NAME_LENGTH 50
-#define PHONE_LENGTH 30
-#define NUMBER_OF_ENTRIES 100
-
-int readRecords(const char* filename, person* collection, int* recordsCount) {
+int readRecords(const char* filename, Person* collection, int* recordsCount) {
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
         return 1;
@@ -30,7 +26,7 @@ int readRecords(const char* filename, person* collection, int* recordsCount) {
     return 0;
 }
 
-int addRecord(person* collection, int* recordNumber) {
+int addRecord(Person* collection, int* recordNumber) {
     if (*recordNumber >= NUMBER_OF_ENTRIES) {
         printf("The base is completely full, there is not enough space\n");
         return 1;
@@ -38,7 +34,7 @@ int addRecord(person* collection, int* recordNumber) {
 
     char newName[NAME_LENGTH] = { '\0' };
     char newPhone[PHONE_LENGTH] = { '\0' };
-    person newRecord = { {'\0'}, {'\0'} };
+    Person newRecord = { {'\0'}, {'\0'} };
 
     printf("Enter the name: ");
     char name2 = scanf("%s", newName);
@@ -54,13 +50,13 @@ int addRecord(person* collection, int* recordNumber) {
     return 0;
 }
 
-void printAllRecords(person* collection, int recordNumber) {
+void printAllRecords(Person* collection, int recordNumber) {
     for (int i = 0; i < recordNumber; ++i) {
         printf("%s %s\n", collection[i].name, collection[i].phone);
     }
 }
 
-char* findAPhone(person* collection, int recordNumber, const char* nameToSearch) {
+char* findAPhone(Person* collection, int recordNumber, const char* nameToSearch) {
     for (int i = 0; i < recordNumber; ++i) {
         if (strcmp(nameToSearch, collection[i].name) == 0) {
             return collection[i].phone;
@@ -69,7 +65,7 @@ char* findAPhone(person* collection, int recordNumber, const char* nameToSearch)
     return NULL;
 }
 
-char* findAName(person* collection, int recordNumber, const char* phoneToSearch) {
+char* findAName(Person* collection, int recordNumber, const char* phoneToSearch) {
     for (int i = 0; i < recordNumber; ++i) {
         if (strcmp(phoneToSearch, collection[i].phone) == 0) {
             return collection[i].name;
@@ -78,7 +74,7 @@ char* findAName(person* collection, int recordNumber, const char* phoneToSearch)
     return NULL;
 }
 
-void saveTheData(person* collection, int recordNumber, const char* filename) {
+void saveTheData(Person* collection, int recordNumber, const char* filename) {
     FILE* file = fopen(filename, "w");
     for (int i = 0; i < recordNumber; ++i) {
         fprintf(file, "%s %s\n", collection[i].name, collection[i].phone);
