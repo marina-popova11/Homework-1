@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include "list.h"
+
+bool testAddStringWithA();
+
+int main(void) {
+    if (!testAddStringWithA()) {
+        printf("Test is failed\n");
+        return -1;
+    }
+    List* list = createList();
+    insertValueAtTheEnd(list, "abc");
+    insertValueAtTheEnd(list, "def");
+    insertValueAtTheEnd(list, "awe");
+    printList(list);
+    addStringWithA(&list);
+    printList(list);
+    deleteList(list);
+    return 0;
+}
+
+//for the test: compares the lists
+bool listTheSame(List* list1, List* list2) {
+    ListElement* element1 = list1->head;
+    ListElement* element2 = list2->head;
+    while (element1->next != NULL && element2->next != NULL) {
+        if (strcmp(element1->value, element2->value) != 0) {
+            return false;
+        }
+        element1 = element1->next;
+        element2 = element2->next;
+    }
+    return (element1->next == NULL && element2->next == NULL ? true : false);
+}
+
+bool testAddStringWithA() {
+    List* testList1 = createList();
+    List* testList2 = createList();
+    insertValueAtTheEnd(testList1, "a");
+    insertValueAtTheEnd(testList1, "b");
+    insertValueAtTheEnd(testList1, "c");
+    insertValueAtTheEnd(testList1, "abc");
+    addStringWithA(&testList1);
+
+    insertValueAtTheEnd(testList2, "a");
+    insertValueAtTheEnd(testList2, "b");
+    insertValueAtTheEnd(testList2, "c");
+    insertValueAtTheEnd(testList2, "abc");
+    insertValueAtTheEnd(testList2, "a");
+    insertValueAtTheEnd(testList2, "abc");
+
+    if (!listTheSame(testList1, testList2)) {
+        printf("The lists are not equal\n");
+        deleteList(testList1);
+        deleteList(testList2);
+        return false;
+    }
+    deleteList(testList1);
+    deleteList(testList2);
+    return true;
+}
