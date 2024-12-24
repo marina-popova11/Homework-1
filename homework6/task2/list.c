@@ -31,8 +31,7 @@ CircularList* createCircularList(int number) {
         if (list->head == NULL) {
             element->next = element;
             list->head = element;
-        }
-        else {
+        } else {
             list->tail->next = element;
             element->next = list->head;
         }
@@ -58,11 +57,13 @@ int getValue(ListElement* element) {
 }
 
 void deleteElement(CircularList* list, ListElement* current, ListElement* previous) {
+    if (list->head == NULL) {
+        return;
+    }
     if (current == list->head) {
         list->head = current->next;
         list->tail->next = list->head;
-    }
-    else if (current == list->tail) {
+    } else if (current == list->tail) {
         list->tail = previous;
         list->tail->next = list->head;
     }

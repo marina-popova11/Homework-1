@@ -23,7 +23,8 @@ int main(void) {
         return -1;
     }
 
-    int n = 0, m = 0;
+    int n = 0;
+    int m = 0;
     printf("Enter the number of warriors:\n");
     scanf("%d", &n);
     printf("Enter the killing step:\n");
