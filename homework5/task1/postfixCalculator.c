@@ -5,7 +5,7 @@
 
 #include "../Stack/Stack.h"
 
-bool operations(char operand, Stack* stack);
+bool operations(char operand, Stack* stack, int *errorCode);
 int calculator(const char* inputString, int *errorCode);
 char* enteringLine(void);
 bool calculatorTest();
@@ -22,14 +22,20 @@ int main(void) {
     int errorCode = 0;
     printf("%s\n", inputString);
     int result = calculator(inputString, &errorCode);
+    if (result == -1) {
+        printf("Error: division by zero\n");
+        return 0;
+    }
     printf("%d\n", result);
     return 0;
 }
 
-bool operations(char operand, Stack* stack) {
-    int errorCode = 0;
-    int upperElement = pop(stack, &errorCode);
-    int bottomElement = pop(stack, &errorCode);
+bool operations(char operand, Stack* stack, int *errorCode) {
+    if (errorCode < 0) {
+        return false;
+    }
+    int upperElement = pop(stack, errorCode);
+    int bottomElement = pop(stack, errorCode);
 
     switch (operand) {
     case '+': {
@@ -48,6 +54,11 @@ bool operations(char operand, Stack* stack) {
         break;
     }
     case '/': {
+        if (upperElement == 0) {
+            *errorCode = -1;
+            clearStack(&stack);
+            return false;
+        }
         int currentElement = bottomElement / upperElement;
         push(stack, currentElement);
         break;
@@ -68,24 +79,26 @@ int calculator(const char* inputString, int *errorCode) {
     for (int i = 0; i < length; ++i) {
         switch (currentString[i]) {
         case '+':
-            operations(currentString[i], stack);
+            operations(currentString[i], stack, errorCode);
             break;
         case '-':
-            operations(currentString[i], stack);
+            operations(currentString[i], stack, errorCode);
             break;
         case '*':
-            operations(currentString[i], stack);
+            operations(currentString[i], stack, errorCode);
             break;
         case '/':
-            operations(currentString[i], stack);
+            operations(currentString[i], stack, errorCode);
             break;
         default:
             push(stack, currentString[i] - '0');
             break;
         }
     }
-    if (!isEmpty(stack)) {
-        return peek(stack);
+    if (*errorCode == 0) {
+        int result = peek(stack);
+        clearStack(&stack);
+        return result;
     }
     *errorCode = -1;
     return -1;

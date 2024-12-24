@@ -33,7 +33,6 @@ int pop(Stack* stack, int* errorCode) {
         *errorCode = -1;
         return -1;
     }
-    errorCode = 0;
     Element* ptr = stack->head;
     int value = stack->head->value;
     stack->head = stack->head->next;
@@ -77,4 +76,8 @@ int stackSize(Stack* stack) {
     }
     stack->head = ptr;
     return size;
+}
+
+Element* getNext(Stack* stack) {
+    return stack->head->next;
 }
