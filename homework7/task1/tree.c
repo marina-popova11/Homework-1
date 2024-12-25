@@ -180,35 +180,3 @@ int getRootKey(Tree* tree) {
 char* getNodeValue(Node* node) {
     return node->value;
 }
-/*
-void printNodeAsTree(Node* node, int depth) {
-    if (node == NULL) {
-        printf("empty tree\n");
-        return;
-    }
-    if (depth != 0) {
-        printf(" |");
-    }
-
-    for (int i = 1; i < depth; ++i) {
-        printf("  |");
-    }
-
-    if (depth != 0) {
-        printf(" = ");
-    }
-
-    printf("%d : %s\n", node->key, node->value);
-    if (node->leftChild != NULL) {
-        printNodeAsTree(node->leftChild, depth + 1);
-    }
-    if (node->rightChild != NULL) {
-        printNodeAsTree(node->rightChild, depth + 1);
-    }
-
-}
-
-void printTree(Tree* tree) {
-    printNodeAsTree(tree->root, 0);
-}
-*/
