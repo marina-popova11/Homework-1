@@ -4,28 +4,32 @@ typedef struct Node Node;
 
 typedef struct Tree Tree;
 
+// create tree
 Tree* createTree(void);
 
+// create a node with a numeric value
 Node* createValueNode(int value);
 
+// create a node with an operation
 Node* createOperatoinNode(char operation, Node* leftChild, Node* rightChild);
 
+// reading each subtree starting from the root
 Node* readSubtree(FILE* file);
 
+// reading from a file starting from the root
 bool* readFromFile(FILE* file, Tree** tree);
 
-int calculatingTree(Tree* tree);
+// calculating the value of an expression in a tree
+int calculateTree(Tree* tree);
 
-int calculatingNode(Node* node);
-
-void printNodeAsTree(Node* node);
-
+// output of the expression to the console
 void printTree(Tree* tree);
 
-void freeNode(Node* node);
-
+// deleting the tree
 bool freeTree(Tree * tree);
 
+// getting node`s value
 int getValue(Node* node);
 
+// getting node`s operation
 char getOperation(Node* node);

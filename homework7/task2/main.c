@@ -24,7 +24,7 @@ bool createOperationNodeTest() {
     return getOperation(node) == '>';
 }
 
-bool calculatingTest() {
+bool calculateTest() {
     FILE* fileTest = fopen("fileTest.txt", "r");
     if (fileTest == NULL) {
         return false;
@@ -34,7 +34,7 @@ bool calculatingTest() {
         return false;
     }
     fclose(fileTest);
-    return calculatingTree(tree) == 4;
+    return calculateTree(tree) == 4;
 }
 
 bool tests() {
@@ -50,8 +50,8 @@ bool tests() {
         printf("CreateOperationNodeTest is failed\n");
         return false;
     }
-    if (!calculatingTest()) {
-        printf("CalculatingTest is failed\n");
+    if (!calculateTest()) {
+        printf("CalculateTest is failed\n");
         return false;
     }
     printf("All tests passed\n");
@@ -79,7 +79,7 @@ int main(void) {
     printTree(tree);
     printf("\n");
 
-    int result = calculatingTree(tree);
+    int result = calculateTree(tree);
     printf("%d", result);
 
     freeTree(tree);

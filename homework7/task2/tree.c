@@ -80,7 +80,7 @@ bool* readFromFile(FILE* file, Tree** tree) {
     return true;
 }
 
-int calculatingNode(Node* node) {
+int calculateNode(Node* node) {
     if (node == NULL) {
         return -1;
     }
@@ -88,8 +88,8 @@ int calculatingNode(Node* node) {
     if (node->isValue) {
         return node->value;
     } else {
-        int leftValue = calculatingNode(node->leftChild);
-        int rightValue = calculatingNode(node->rightChild);
+        int leftValue = calculateNode(node->leftChild);
+        int rightValue = calculateNode(node->rightChild);
 
         switch (node->operation) {
         case '+':
@@ -107,10 +107,10 @@ int calculatingNode(Node* node) {
     return 0;
 }
 
-int calculatingTree(Tree* tree) {
+int calculateTree(Tree* tree) {
     int result = 0;
     Node* node = tree->root;
-    result = calculatingNode(node);
+    result = calculateNode(node);
     return result;
 }
 
