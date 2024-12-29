@@ -132,10 +132,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="list.c" />
-    <ClCompile Include="main.c" />
+    <ClCompile Include="main2.c" />
+    <ClCompile Include="matrix.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="list.h" />
+    <ClInclude Include="matrix.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

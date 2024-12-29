@@ -3,6 +3,15 @@
 #include <stdbool.h>
 #include "list.h"
 
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+typedef struct List {
+    Node* head;
+} List;
+
 void printList(List* list) {
     Node* element = list->head;
     if (element == NULL) {
@@ -23,25 +32,18 @@ void insert(int value, List* list) {
     }
     element->data = value;
     element->next = NULL;
-    if (list->head == NULL) {
-        list->head = element;
-    }
-    else {
-        element->next = list->head->next;
-        list->head->next = element;
-    }
+    element->next = list->head;
+    list->head = element;
 }
 
 List* createList() {
-    List* list = malloc(sizeof(List));
-    if (list == NULL) {
-        return NULL;
-    }
-    list->head = NULL;
-    return list;
+    return calloc(1, sizeof(List));
 }
 
 int listLength(List* list) {
+    if (list->head == NULL) {
+        return 0;
+    }
     Node* element = list->head;
     int length = 1;
     while (element->next != NULL) {
@@ -52,6 +54,9 @@ int listLength(List* list) {
 }
 
 int accessElement(int index, List* list) {
+    if (list == NULL) {
+        return 0;
+    }
     Node* element = list->head;
     for (int i = 0; i < index; ++i) {
         element = element->next;
@@ -63,3 +68,16 @@ int accessElement(int index, List* list) {
     return element->data;
 }
 
+void freeList(List* list) {
+    if (list == NULL) {
+        return;
+    }
+    Node* element = list->head;
+    Node* nextElement = NULL;
+    while (element != NULL) {
+        nextElement = element->next;
+        free(element);
+        element = nextElement;
+    }
+    free(list);
+}

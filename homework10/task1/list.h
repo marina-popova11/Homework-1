@@ -4,14 +4,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-typedef struct Node {
-    int data;
-    struct Node* next;
-} Node;
+typedef struct Node Node;
 
-typedef struct List {
-    Node* head;
-} List;
+typedef struct List List;
 
 //inserting an element
 void insert(int value, List* list);
@@ -27,3 +22,6 @@ int accessElement(int index, List* list);
 
 //counts the length of the list
 int listLength(List* list);
+
+// deleting list
+void freeList(List* list);
