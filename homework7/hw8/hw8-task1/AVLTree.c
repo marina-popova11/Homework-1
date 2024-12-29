@@ -34,6 +34,10 @@ Node* createNode(const char* key, const char* value) {
     return node;
 }
 
+void createNodeByTree(Tree* tree, const char* key, const char* value) {
+    createNode(key, value);
+}
+
 char* searchValue(Tree* tree, const char* key) {
     Node* node = tree->root;
     if (node == NULL) {
