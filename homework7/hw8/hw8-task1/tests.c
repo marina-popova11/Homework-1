@@ -19,7 +19,12 @@ bool insertNodeAndSearchTest() {
     insertNode(tree, "245", "fgh", &root1);
     insertNode(tree, "114", "tyu", &root1);
     char* result = searchValue(tree, "123");
-    return strcmp(result, "asd") == 0;
+    if (strcmp(result, "asd") == 0) {
+        freeTree(tree);
+        return true;
+    }
+    freeTree(tree);
+    return false;
 }
 
 bool deleteNodeFromListTest() {
@@ -33,7 +38,12 @@ bool deleteNodeFromListTest() {
     insertNode(tree, "564", "hhh", &root1);
     insertNode(tree, "987", "mnk", &root1);
     deleteNode(tree, "245", &root1);
-    return !isValueInList(tree, "245");
+    if (!isValueInList(tree, "245")) {
+        freeTree(tree);
+        return true;
+    }
+    freeTree(tree);
+    return false;
 }
 
 bool deleteNodeWithChildTest() {
@@ -47,7 +57,12 @@ bool deleteNodeWithChildTest() {
     insertNode(tree, "564", "hhh", &root1);
     insertNode(tree, "987", "mnk", &root1);
     deleteNode(tree, "564", &root1);
-    return !isValueInList(tree, "564");
+    if (!isValueInList(tree, "564")) {
+        freeTree(tree);
+        return true;
+    }
+    freeTree(tree);
+    return false;
 }
 
 bool deleteNodeWithRotatesTest() {
@@ -63,7 +78,12 @@ bool deleteNodeWithRotatesTest() {
     insertNode(tree, "10", "ggg", &root1);
     insertNode(tree, "110", "poj", &root1);
     deleteNode(tree, "110", &root1);
-    return !isValueInList(tree, "110");
+    if (!isValueInList(tree, "110")) {
+        freeTree(tree);
+        return true;
+    }
+    freeTree(tree);
+    return false;
 }
 
 bool deleteLeftRightRotate() {
@@ -75,7 +95,12 @@ bool deleteLeftRightRotate() {
     insertNode(tree, "250", "fgh", &root1);
     insertNode(tree, "245", "tyu", &root1);
     insertNode(tree, "247", "hhh", &root1);
-    return isValueInList(tree, "345");
+    if (isValueInList(tree, "345")) {
+        freeTree(tree);
+        return true;
+    }
+    freeTree(tree);
+    return false;
 }
 
 bool tests() {

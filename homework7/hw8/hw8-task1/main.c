@@ -21,7 +21,6 @@ int main(void) {
         if (scanf("%d", &option) != 1) {
             printf("Error input\n");
             continue;
-            return 1;
         }
         switch (option) {
         case 1: {
@@ -74,7 +73,6 @@ int main(void) {
         default:
             printf("There is no such operation\n");
             continue;
-            return -1;
         }
     }
     freeTree(tree);

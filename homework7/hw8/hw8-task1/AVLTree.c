@@ -1,16 +1,16 @@
+#include "AVLTree.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include <assert.h>
-#include "AVLTree.h"
 
 typedef struct Node {
     const char* key;
     const char* value;
     Node* leftChild;
     Node* rightChild;
-    int balance;
+    int hight;
 } Node;
 
 typedef struct Tree {
@@ -18,12 +18,7 @@ typedef struct Tree {
 } Tree;
 
 Tree* createTree(void) {
-    Tree* tree = malloc(sizeof(Tree));
-    if (tree == NULL) {
-        return NULL;
-    }
-    tree->root = NULL;
-    return tree;
+    return calloc(1, sizeof(Tree));
 }
 
 Node* createNode(const char* key, const char* value) {
@@ -35,7 +30,7 @@ Node* createNode(const char* key, const char* value) {
     node->value = strdup(value);
     node->leftChild = NULL;
     node->rightChild = NULL;
-    node->balance = 1;
+    node->hight = 1;
     return node;
 }
 
@@ -56,38 +51,16 @@ char* searchValue(Tree* tree, const char* key) {
     return NULL;
 }
 
-//Node* checkBalanceAndRotates(int balance, Node* node, Node** root1) {
-//    assert(balance <= 2 && balance >= -2);
-//    if (balance == 2) {
-//        assert(getBalance(node->leftChild) == 1 || getBalance(node->leftChild) == -1);
-//        if (getBalance(node->leftChild) == 1) { //LL imBalance
-//            return leftLeftRotate(node, root1);
-//        }
-//        if (getBalance(node->leftChild) == -1) { //LR imBalance
-//            return leftRightRotate(node, root1);
-//        }
-//    }
-//    if (balance == -2) {
-//        assert(getBalance(node->rightChild) == 1 || getBalance(node->rightChild) == -1);
-//        if (getBalance(node->rightChild) == 1) {
-//            return rightLefttRotate(node, root1);
-//        }
-//        if (getBalance(node->rightChild) == -1) {
-//            return rightRightRotate(node, root1);
-//        }
-//    }
-//}
-
 int getHeight(Node* node) {
-    int leftSubTreeHeight = node->leftChild ? node->leftChild->balance : 0;
-    int rightSubTreeHeight = node->rightChild ? node->rightChild->balance : 0;
+    int leftSubTreeHeight = node->leftChild ? node->leftChild->hight : 0;
+    int rightSubTreeHeight = node->rightChild ? node->rightChild->hight : 0;
     int result = leftSubTreeHeight > rightSubTreeHeight ? leftSubTreeHeight : rightSubTreeHeight;
     return result + 1;
 }
 
 int getBalance(Node* node) {
-    int leftSubTreeHeight = node->leftChild ? node->leftChild->balance : 0;
-    int rightSubTreeHeight = node->rightChild ? node->rightChild->balance : 0;
+    int leftSubTreeHeight = node->leftChild ? node->leftChild->hight : 0;
+    int rightSubTreeHeight = node->rightChild ? node->rightChild->hight : 0;
     int result = leftSubTreeHeight - rightSubTreeHeight;
     return result;
 }
@@ -105,8 +78,8 @@ Node* leftLeftRotate(Node* node, Node** root1) {
     if (node == *root1) {
         *root1 = left;
     }
-    node->balance = getHeight(node);
-    left->balance = getHeight(left);
+    node->hight = getHeight(node);
+    left->hight = getHeight(left);
     return left;
 }
 
@@ -124,9 +97,9 @@ Node* leftRightRotate(Node* node, Node** root1) {
     leftRight->rightChild = node;
     leftRight->leftChild = left;
 
-    left->balance = getHeight(left);
-    node->balance = getHeight(node);
-    leftRight->balance = getHeight(leftRight);
+    left->hight = getHeight(left);
+    node->hight = getHeight(node);
+    leftRight->hight = getHeight(leftRight);
     return leftRight;
 }
 
@@ -143,8 +116,8 @@ Node* rightRightRotate(Node* node, Node** root1) {
     if (node == *root1) {
         *root1 = right;
     }
-    node->balance = getHeight(node);
-    right->balance = getHeight(right);
+    node->hight = getHeight(node);
+    right->hight = getHeight(right);
     return right;
 }
 
@@ -162,9 +135,9 @@ Node* rightLeftRotate(Node* node, Node** root1) {
     rightLeft->leftChild = node;
     rightLeft->rightChild = right;
 
-    node->balance = getHeight(node);
-    right->balance = getHeight(right);
-    rightLeft->balance = getHeight(rightLeft);
+    node->hight = getHeight(node);
+    right->hight = getHeight(right);
+    rightLeft->hight = getHeight(rightLeft);
     return rightLeft;
 }
 
@@ -182,7 +155,7 @@ Node* insertValue(Node* node, const char* key, const char* value, Node** root1) 
         return node;
     }
 
-    node->balance = getHeight(node);
+    node->hight = getHeight(node);
     int balance = getBalance(node);
 
     assert(balance <= 2 && balance >= -2);
@@ -249,7 +222,7 @@ Node* deleteValue(Node* node, const char* key, Node** root1) {
             return node;
         }
     }
-    node->balance = getHeight(node);
+    node->hight = getHeight(node);
     int balance = getBalance(node);
 
     assert(balance <= 2 && balance >= -2);
