@@ -26,8 +26,16 @@ CityData* readDataFromFile(FILE* file) {
     fscanf(file, "%d", &data->roads);
 
     data->matrix = calloc(data->cities + 1, sizeof(int*));
+    if (data->matrix == NULL) {
+        freeMatrix(data);
+        return NULL;
+    }
     for (int i = 1; i <= data->cities; ++i) {
         data->matrix[i] = calloc(data->cities + 1, sizeof(int));
+        if (data->matrix[i] == NULL) {
+            freeMatrix(data);
+            return NULL;
+        }
     }
 
     for (int i = 0; i < data->roads; ++i) {
@@ -64,10 +72,11 @@ void conquer(List* state, int** matrix, bool marked[], int cities) {
     int nearestCity = -1;
     int length = listLength(state);
     for (int i = 0; i < length; ++i) {
-        int stateCity = accessElement(i, state);
+        int stateCity = 0;
+        accessElement(i, state, &stateCity);
         for (int j = 1; j <= cities; ++j) {
             int matrixElement = matrix[stateCity][j];
-            if (matrixElement != 0 && marked[j] != true) {
+            if (matrixElement != 0 && !marked[j]) {
                 if (nearestDistance > matrix[stateCity][j]) {
                     nearestDistance = matrix[stateCity][j];
                     nearestCity = j;
@@ -83,7 +92,7 @@ void conquer(List* state, int** matrix, bool marked[], int cities) {
 
 bool allMarked(bool marked[], int length) {
     for (int i = 1; i < length; ++i) {
-        if (marked[i] == false) {
+        if (!marked[i]) {
             return false;
         }
     }

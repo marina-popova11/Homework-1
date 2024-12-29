@@ -25,15 +25,16 @@ void printList(List* list) {
     printf("\n");
 }
 
-void insert(int value, List* list) {
+bool insert(int value, List* list) {
     Node* element = malloc(sizeof(Node));
     if (element == NULL) {
-        return;
+        return false;
     }
     element->data = value;
     element->next = NULL;
     element->next = list->head;
     list->head = element;
+    return true;
 }
 
 List* createList() {
@@ -53,19 +54,23 @@ int listLength(List* list) {
     return length;
 }
 
-int accessElement(int index, List* list) {
+int accessElement(int index, List* list, int* value) {
     if (list == NULL) {
-        return 0;
+        return -1;
     }
     Node* element = list->head;
     for (int i = 0; i < index; ++i) {
         element = element->next;
         if (element == NULL) {
-            printf("Error: index out of range\n");
-            return -1;;
+            return -1;
         }
     }
-    return element->data;
+    if (element == NULL) {
+        return -1;
+    } else {
+        *value = element->data;
+        return 0;
+    }
 }
 
 void freeList(List* list) {
