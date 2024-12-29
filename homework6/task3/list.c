@@ -19,13 +19,7 @@ typedef struct List {
 } List;
 
 List* createList(void) {
-    List* list = malloc(sizeof(List));
-    if (list == NULL) {
-        return NULL;
-    }
-    list->head = NULL;
-    list->tail = NULL;
-    return list;
+    return calloc(1, sizeof(List));
 }
 
 ListElement* createElement(const char* name, const char* phone) {
