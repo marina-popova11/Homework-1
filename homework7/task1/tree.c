@@ -17,12 +17,7 @@ typedef struct Tree {
 } Tree;
 
 Tree* createTree(void) {
-    Tree* tree = malloc(sizeof(Tree));
-    if (tree == NULL) {
-        return NULL;
-    }
-    tree->root = NULL;
-    return tree;
+    return calloc(1, sizeof(Tree));
 }
 
 Node* createNode(int key, const char* value) {
@@ -30,8 +25,7 @@ Node* createNode(int key, const char* value) {
     if (node == NULL) {
         return NULL;
     }
-    node->value = calloc(256, sizeof(char));
-    strcpy(node->value, value);
+    node->value = strdup(value);
     node->key = key;
     node->leftChild = NULL;
     node->rightChild = NULL;
