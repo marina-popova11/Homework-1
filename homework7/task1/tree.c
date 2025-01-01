@@ -41,8 +41,7 @@ bool insertNode(Tree* tree, int key, const char* value) {
             current = &((*current)->rightChild);
         } else {
             free((*current)->value);
-            (*current)->value = calloc(256, sizeof(char));
-            strcpy((*current)->value, value);
+            (*current)->value = strdup(value);
             return true;
         }
     }
@@ -161,10 +160,9 @@ void freeNode(Node* node) {
     free(node);
 }
 
-bool freeTree(Tree* tree) {
+void freeTree(Tree* tree) {
     freeNode(tree->root);
     free(tree);
-    return true;
 }
 
 int getRootKey(Tree* tree) {

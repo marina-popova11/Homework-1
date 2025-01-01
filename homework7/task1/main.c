@@ -17,7 +17,12 @@ bool insertNodeAndIsValueInListTest() {
     insertNode(tree, 12, "123");
     insertNode(tree, 34, "456");
     insertNode(tree, 9, "3");
-    return isValueInList(tree, 9);
+    if (isValueInList(tree, 9)) {
+        freeTree(tree);
+        return true;
+    }
+    freeTree(tree);
+    return false;
 }
 
 bool deleteNodeWithoutChildrenTest() {
@@ -27,7 +32,12 @@ bool deleteNodeWithoutChildrenTest() {
     insertNode(tree, 4, "15");
 
     deleteKey(tree, 4);
-    return !isValueInList(tree, 4);
+    if (!isValueInList(tree, 4)) {
+        freeTree(tree);
+        return true;
+    }
+    freeTree(tree);
+    return false;
 }
 
 bool deleteNodeWithOneChildTest() {
@@ -39,8 +49,12 @@ bool deleteNodeWithOneChildTest() {
     insertNode(tree, 24, "1");
 
     deleteKey(tree, 21);
-
-    return !isValueInList(tree, 21);
+    if (!isValueInList(tree, 21)) {
+        freeTree(tree);
+        return true;
+    }
+    freeTree(tree);
+    return false;
 }
 
 bool deleteNodeWithbothChildrenTest() {
@@ -52,8 +66,12 @@ bool deleteNodeWithbothChildrenTest() {
     insertNode(tree, 13, "1");
 
     deleteKey(tree, 13);
-
-    return !isValueInList(tree, 13);
+    if (!isValueInList(tree, 13)) {
+        freeTree(tree);
+        return true;
+    }
+    freeTree(tree);
+    return false;
 }
 
 bool deleteNodeFromRoot() {
@@ -65,8 +83,12 @@ bool deleteNodeFromRoot() {
     insertNode(tree, 13, "1");
 
     deleteKey(tree, 12);
-
-    return getRootKey(tree) == 14;
+    if (getRootKey(tree) == 14) {
+        freeTree(tree);
+        return true;
+    }
+    freeTree(tree);
+    return false;
 }
 
 bool searchByKeyTest() {
@@ -76,9 +98,13 @@ bool searchByKeyTest() {
     insertNode(tree, 14, "15");
     insertNode(tree, 21, "14");
     insertNode(tree, 24, "1");
-
     char* string = searchByKey(tree, 7);
-    return !strcmp(string, "511");
+    if (!strcmp(string, "511")) {
+        freeTree(tree);
+        return true;
+    }
+    freeTree(tree);
+    return false;
 }
 
 bool tests() {
@@ -126,7 +152,6 @@ int main(void) {
         if (scanf("%d", &option) != 1) {
             printf("Error input\n");
             continue;
-            return 1;
         }
         switch (option) {
             case 1: {
@@ -175,7 +200,6 @@ int main(void) {
             default:
                 printf("There is no such operation\n");
                 continue;
-                return -1;
             }
     }
     freeTree(tree);

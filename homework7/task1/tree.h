@@ -23,7 +23,7 @@ bool isValueInList(Tree* tree, int key);
 void deleteKey(Tree* tree, int key);
 
 // deleting the tree
-bool freeTree(Tree* tree);
+void freeTree(Tree* tree);
 
 // getting a root key
 int getRootKey(Tree* tree);
