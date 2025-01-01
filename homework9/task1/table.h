@@ -2,8 +2,6 @@
 
 #include <stdbool.h>
 
-bool tests();
-
 typedef struct HashTable HashTable;
 
 typedef struct HashTableIterator HashTableIterator;

@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClInclude Include="List.h" />
     <ClInclude Include="table.h" />
+    <ClInclude Include="test.h" />
     <ClInclude Include="tests.h" />
   </ItemGroup>
   <ItemGroup>

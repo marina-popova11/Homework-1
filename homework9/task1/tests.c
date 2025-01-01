@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include "test.h"
 #include "table.h"
 #include "List.h"
 

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "table.h"
+#include "test.h"
 
 void readFromFile(const char* filename, HashTable* table) {
     FILE* file = fopen(filename, "r");
