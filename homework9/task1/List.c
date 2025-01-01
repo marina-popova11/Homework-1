@@ -4,25 +4,38 @@
 #include <string.h>
 #include "List.h"
 
-//typedef struct Node {
-//    char* word;
-//    int frequency;
-//    struct Node* next;
-//} Node;
-//
-//typedef struct List {
-//    Node* head;
-//    int length;
-//} List;
+typedef struct Node {
+    char* word;
+    int frequency;
+    struct Node* next;
+} Node;
+
+typedef struct List {
+    Node* head;
+    int length;
+} List;
+
+Node* addElement(List* list) {
+    Node* element = malloc(sizeof(Node));
+    if (element == NULL) {
+        return false;
+    }
+    element->word = NULL;
+    element->frequency = 0;
+    element->next = NULL;
+    if (list->head == NULL) {
+        list->head = element;
+        list->length = 1;
+        return element;
+    }
+    list->head->next = element;
+    list->head = element;
+    ++list->length;
+    return element;
+}
 
 List* createList(void) {
-    List* list = malloc(sizeof(List));
-    if (list == NULL) {
-        return NULL;
-    }
-    list->head = NULL;
-    list->length = 0;
-    return list;
+    return calloc(1, sizeof(List));
 }
 
 Node* getHeadElement(List* list) {
@@ -58,6 +71,10 @@ Node* getNext(Node* element) {
 
 void setFrequency(Node* element, int frequency) {
     element->frequency = frequency;
+}
+
+void setValue(Node* element, char* value) {
+    element->word = strdup(value);
 }
 
 void deleteList(List* list) {
