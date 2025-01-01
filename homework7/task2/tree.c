@@ -10,7 +10,7 @@ typedef struct Node {
     char operation;
     struct Node* leftChild;
     struct Node* rightChild;
-    int isValue; //1 if it a number, 0 if it operation
+    int isValue;
 } Node;
 
 typedef struct Tree {
@@ -33,7 +33,7 @@ Node* createValueNode(int value) {
     return node;
 }
 
-Node* createOperatoinNode(char operation, Node* leftChild, Node* rightChild) {
+Node* createOperationNode(char operation, Node* leftChild, Node* rightChild) {
     Node* node = malloc(sizeof(Node));
     if (node == NULL) {
         return NULL;
@@ -46,9 +46,9 @@ Node* createOperatoinNode(char operation, Node* leftChild, Node* rightChild) {
 }
 
 Node* readSubtree(FILE* file) {
-    char symbol;
+    char symbol = 0;
 
-    while ((symbol = fgetc(file)) == ' ');
+    while ((symbol = fgetc(file)) != EOF && symbol == ' ');
     if (symbol == EOF) {
         return NULL;
     }
@@ -58,21 +58,22 @@ Node* readSubtree(FILE* file) {
         Node* left = readSubtree(file);
         Node* right = readSubtree(file);
         fgetc(file);
-        return createOperatoinNode(operation, left, right);
+        return createOperationNode(operation, left, right);
     } else {
         ungetc(symbol, file);
         int value = 0;
-        fscanf(file, "%d", &value);
+        if (fscanf(file, "%d", &value) != 1) {
+            return NULL;
+        }
         return createValueNode(value);
     }
     return NULL;
 }
 
-bool* readFromFile(FILE* file, Tree** tree) {
-    Tree* newTree = createTree();
-    newTree->root = readSubtree(file);
-    *tree = newTree;
-    return true;
+bool readFromFile(FILE* file, Tree** tree) {
+    *tree = createTree();
+    (*tree)->root = readSubtree(file);
+    return (*tree)->root != NULL;
 }
 
 int calculateNode(Node* node) {

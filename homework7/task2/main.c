@@ -6,7 +6,12 @@
 
 bool createTreeTest() {
     Tree* tree = createTree();
-    return tree != NULL;
+    if (tree != NULL) {
+        freeTree(tree);
+        return true;
+    }
+    freeTree(tree);
+    return false;
 }
 
 bool createValueNodeTest() {
@@ -20,8 +25,13 @@ bool createOperationNodeTest() {
     Node* left = NULL;
     Node* right = NULL;
     char operation = '>';
-    Node* node = createOperatoinNode(operation, left, right);
-    return getOperation(node) == '>';
+    Node* node = createOperationNode(operation, left, right);
+    if (getOperation(node) == '>') {
+        freeTree(tree);
+        return true;
+    }
+    freeTree(tree);
+    return false;
 }
 
 bool calculateTest() {
@@ -34,7 +44,12 @@ bool calculateTest() {
         return false;
     }
     fclose(fileTest);
-    return calculateTree(tree) == 4;
+    if (calculateTree(tree) == 4) {
+        freeTree(tree);
+        return true;
+    }
+    freeTree(tree);
+    return false;
 }
 
 bool tests() {
