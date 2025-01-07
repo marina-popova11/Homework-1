@@ -80,3 +80,7 @@ bool isLast(List* list, Position position) {
 bool isValid(List* list, Position position) {
     return position != NULL;
 }
+
+bool isEmpty(List* list) {
+    return list->head->next == NULL;
+}

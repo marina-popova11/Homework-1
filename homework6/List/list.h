@@ -39,3 +39,6 @@ bool isLast(List* list, Position position);
 
 //checking for the existence of a value
 bool isValid(List * list, Position position);
+
+// checks if the list is empty
+bool isEmpty(List* list);
