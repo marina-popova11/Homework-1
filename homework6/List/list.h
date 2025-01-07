@@ -17,7 +17,10 @@ List* createList(void);
 bool addElement(List* list, Position position, Value value);
 
 // deleting element from list by position
-bool deleteElement(List* list, Position position);
+void deleteElement(List* list, Position position);
+
+// deleting all list
+void deleteList(List* list);
 
 // getting value from list by position
 Value getValue(List* list, Position position);
@@ -36,3 +39,6 @@ bool isLast(List* list, Position position);
 
 //checking for the existence of a value
 bool isValid(List* list, Position position);
+
+// checks if the list is empty
+bool isEmpty(List* list);
