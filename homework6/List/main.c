@@ -8,14 +8,23 @@
 
 bool createListTest() {
     List* list = createList();
-    return list != NULL;
+    if (list != NULL) {
+        deleteList(list);
+        return true;
+    }
+    deleteList(list);
+    return false;
 }
-
 bool addElementTest() {
     List* list = createList();
     Position position = first(list);
     addElement(list, position, 1);
-    return isValid(list, position);
+    if (isValid(list, position)) {
+        deleteList(list);
+        return true;
+    }
+    deleteList(list);
+    return false;
 }
 
 bool getValueTest() {
@@ -23,14 +32,25 @@ bool getValueTest() {
     Position position = first(list);
     addElement(list, position, 1);
     position = next(position);
-    return getValue(list, position) == 1;
+    if (getValue(list, position) == 1) {
+        deleteList(list);
+        return true;
+    }
+    deleteList(list);
+    return false;
 }
 
 bool deleteElementTest() {
     List* list = createList();
     Position position = first(list);
     addElement(list, position, 5);
-    return deleteElement(list, position);
+    deleteElement(list, position);
+    if (isEmpty(list)) {
+        deleteList(list);
+        return true;
+    }
+    deleteList(list);
+    return false;
 }
 
 bool setValueTest() {
@@ -40,7 +60,12 @@ bool setValueTest() {
     position = next(position);
     addElement(list, position, 6);
     setValue(list, position, 7);
-    return getValue(list, position) == 7;
+    if (getValue(list, position) == 7) {
+        deleteList(list);
+        return true;
+    }
+    deleteList(list);
+    return false;
 }
 
 int main(void) {

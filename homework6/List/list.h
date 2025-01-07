@@ -10,20 +10,35 @@ typedef ListElement* Position;
 
 typedef int Value;
 
+// create list
 List* createList(void);
 
+// adding new element in list by position
 bool addElement(List* list, Position position, Value value);
 
-bool deleteElement(List* list, Position position);
+// deleting element from list by position
+void deleteElement(List* list, Position position);
 
+// deleting all list
+void deleteList(List* list);
+
+// getting value from list by position
 Value getValue(List* list, Position position);
 
+//changing the value
 void setValue(List* list, Position position, Value value);
 
+//assigning the first position
 Position first(List* list);
 
+//assigning the next position
 Position next(Position position);
 
+//checking for the last element
 bool isLast(List* list, Position position);
 
-bool isValid(List * list, Position position);
+//checking for the existence of a value
+bool isValid(List* list, Position position);
+
+// checks if the list is empty
+bool isEmpty(List* list);
