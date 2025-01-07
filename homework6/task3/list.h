@@ -18,9 +18,6 @@ bool addElement(List* list, const char* name, const char* phone);
 // reading data from file
 bool readFromFile(FILE* file, List** list);
 
-// divides the list into parts
-void split(ListElement* head, ListElement** first, ListElement** last);
-
 // sorts the parts
 void mergeSort(ListElement** head, int (*cmp)(const ListElement*, const ListElement*));
 

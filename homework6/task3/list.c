@@ -38,11 +38,9 @@ bool addElement(List* list, const char* name, const char* phone) {
     if (element == NULL) {
         return false;
     }
-    element->name = calloc(1, sizeof(ListElement));
-    element->phoneNumber = calloc(1, sizeof(ListElement));
+    element->name = strdup(name);
+    element->phoneNumber = strdup(phone);
 
-    strcpy(element->name, name);
-    strcpy(element->phoneNumber, phone);
     element->next = NULL;
     if (list->head == NULL) {
         list->head = element;
@@ -104,12 +102,11 @@ ListElement* merge(ListElement* first, ListElement* second, int(*cmp)(const List
 }
 
 void mergeSort(ListElement** head, int (*cmp)(const ListElement*, const ListElement*)) {
-    ListElement* first;
-    ListElement* second;
-
     if ((*head) == NULL || (*head)->next == NULL) {
         return;
     }
+    ListElement* first = NULL;
+    ListElement* second = NULL;
     split(*head, &first, &second);
     mergeSort(&first, cmp);
     mergeSort(&second, cmp);

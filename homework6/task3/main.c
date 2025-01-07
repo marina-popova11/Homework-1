@@ -11,6 +11,7 @@ int main() {
     }
     List* list = NULL;
     if (!readFromFile(file, &list)) {
+        fclose(file);
         return -1;
     }
     fclose(file);
@@ -18,15 +19,16 @@ int main() {
     printf("Enter a \"1\" to sort by name\n");
     printf("Enter a \"0\" to sort by phone number\n");
     printf(">");
-    int choise = 0;
-    scanf("%d", &choise);
-    if (choise == 1) {
+    int choice = 0;
+    scanf("%d", &choice);
+    if (choice == 1) {
         mergeSort(list, compareByName);
     }
-    else if (choise == 0) {
+    else if (choice == 0) {
         mergeSort(list, compareByPhone);
     }
     else {
+        freeList(list);
         return -1;
     }
     printf("Sorted records:\n");
