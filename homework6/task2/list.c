@@ -40,32 +40,6 @@ void addElement(CircularList* list, int value) {
     list->tail = element;
 }
 
-//CircularList* createCircularList(int number) {
-//    CircularList* list = (CircularList*)malloc(sizeof(CircularList));
-//    if (list == NULL) {
-//        return NULL;
-//    }
-//    list->head = NULL;
-//    list->tail = NULL;
-//
-//    for (int i = 0; i < number; ++i) {
-//        ListElement* element = (ListElement*)malloc(sizeof(ListElement));
-//        if (element == NULL) {
-//            return NULL;
-//        }
-//        element->value = i + 1;
-//        if (list->head == NULL) {
-//            element->next = element;
-//            list->head = element;
-//        } else {
-//            list->tail->next = element;
-//            element->next = list->head;
-//        }
-//        list->tail = element;
-//    }
-//    return list;
-//}
-
 CircularList* getHead(CircularList* list) {
     return list->head;
 }
