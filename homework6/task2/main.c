@@ -4,8 +4,9 @@
 #include <assert.h>
 
 #include "list.h"
+#include "testList.h"
 
-bool positionSearchTest();
+bool positionSearchTest(void);
 
 bool tests() {
     if (!createCircularListTest()) {
@@ -14,6 +15,10 @@ bool tests() {
     }
     if (!deleteElementTest()) {
         printf("DeleteElementTest is failed!\n");
+        return false;
+    }
+    if (!addElementTest()) {
+        printf("AddElementTest is failed!\n");
         return false;
     }
     return true;
@@ -36,7 +41,13 @@ int main(void) {
 }
 
 int positionSearch(int numberOfWarriors, int killingStep) {
-    CircularList* list = createCircularList(numberOfWarriors);
+    CircularList* list = createCircularList();
+    if (list == NULL) {
+        return -1;
+    }
+    for (int i = 1; i <= numberOfWarriors; ++i) {
+        addElement(list, i);
+    }
     ListElement* current = getHead(list);
     ListElement* previous = getTail(list);
 
@@ -50,13 +61,10 @@ int positionSearch(int numberOfWarriors, int killingStep) {
         current = getNext(previous);
     }
     int lastSurvivor = getValue(current);
-    free(current);
-    free(list);
+    deleteList(list);
     return lastSurvivor;
 }
 
-bool positionSearchTest() {
-    int number = 22;
-    int step = 4;
-    return positionSearch(number, step) == 3;
+bool positionSearchTest(void) {
+    return positionSearch(22, 4) == 3;
 }
