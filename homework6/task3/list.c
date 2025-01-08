@@ -27,8 +27,8 @@ ListElement* createElement(const char* name, const char* phone) {
     if (element == NULL) {
         return false;
     }
-    strcpy(element->name, name);
-    strcpy(element->phoneNumber, phone);
+    element->name = strdup(name);
+    element->phoneNumber = strdup(phone);
     element->next = NULL;
     return element;
 }
@@ -82,23 +82,26 @@ void split(ListElement* head, ListElement** first, ListElement** last) {
 }
 
 ListElement* merge(ListElement* first, ListElement* second, int(*cmp)(const ListElement*, const ListElement*)) {
-    ListElement* result = NULL;
+    ListElement tmp = { 0, NULL };
+    ListElement* tail = &tmp;
+    tmp.next = NULL;
 
-    if (!first) {
-        return second;
+    while (first != NULL && second != NULL) {
+        if (cmp(first, second) <= 0) {
+            tail->next = first;
+            first = first->next;
+        } else {
+            tail->next = second;
+            second = second->next;
+        }
+        tail = tail->next;
     }
-    if (!second) {
-        return first;
+    if (first != NULL) {
+        tail->next = first;
+    } else {
+        tail->next = second;
     }
-    if (cmp(first, second) <= 0) {
-        result = first;
-        result->next = merge(first->next, second, cmp);
-    }
-    else {
-        result = second;
-        result->next = merge(first, second->next, cmp);
-    }
-    return result;
+    return tmp.next;
 }
 
 void mergeSort(ListElement** head, int (*cmp)(const ListElement*, const ListElement*)) {
