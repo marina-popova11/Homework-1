@@ -5,15 +5,20 @@
 
 #include "operations.h"
 
+#define NAME_LENGTH 50
+#define PHONE_LENGTH 30
+#define NUMBER_OF_ENTRIES 100
+
 void printOperations(void);
+bool testOpenFile();
 bool testReadFromFile();
 
 int main(void) {
-    if (!testReadFromFile()) {
+    if (!testOpenFile() || !testReadFromFile()) {
         printf("Tests failed!\n");
         return 1;
     }
-    Person collection[NUMBER_OF_ENTRIES] = { 0 };
+    person collection[NUMBER_OF_ENTRIES];
 
     int recordNumber = 0;
     if (readRecords("phoneDirectory.txt", collection, &recordNumber) != 0) {
@@ -83,8 +88,16 @@ void printOperations(void) {
         "5. Save the current data to a file\n\n");
 }
 
+bool testOpenFile() {
+    FILE* file = fopen("testFile.txt", "r");
+    if (file == NULL) {
+        return false;
+    }
+    return true;
+}
+
 bool testReadFromFile() {
-    Person* collectionTest[NUMBER_OF_ENTRIES];
+    person* collectionTest[NUMBER_OF_ENTRIES];
     int recordNumberTest = 0;
     if (readRecords("testFile.txt", collectionTest, &recordNumberTest) != 0) {
         printf("Error reading database\n");

@@ -41,11 +41,11 @@ void quickSort(int* array, int left, int right) {
     }
 }
 
-int theMostFrequencyElement(int* array, int arrayLength) {
-    if (arrayLength == 0) {
+int theMostFrequencyElement(int* array, int arraylength) {
+    if (arraylength == 0) {
         return 0;
     }
-    quickSort(array, 0, arrayLength - 1);
+    quickSort(array, 0, arraylength - 1);
 
     int element = array[0];
     int quantity = 0;
@@ -53,7 +53,7 @@ int theMostFrequencyElement(int* array, int arrayLength) {
     int maxCountNumber = element;
     int maxCount = quantity;
 
-    for (int i = 0; i < arrayLength; ++i) {
+    for (int i = 0; i < arraylength; ++i) {
         if (array[i] != element) {
             if (quantity > maxCount) {
                 maxCount = quantity;
